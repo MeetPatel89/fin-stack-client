@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
+import Header from './Header/Header';
 import SignUp from './SignUp/SignUp';
+import SignIn from './SignIn/SignIn';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signUpForm: false,
+      signInForm: false,
+    };
+  }
+
   render() {
     return (
       <>
-        <h1>Hello Fin Stack</h1>
-        <Link to='/register'>
-          <button>SignUp</button>
-        </Link>
+        <Header />
+        {this.state.signInForm ? (
+          <>
+            <SignIn />
+          </>
+        ) : this.state.signUpForm ? (
+          <>
+            <SignUp />
+          </>
+        ) : (
+          <>
+            <button>SignUp</button>
 
-        <br />
-        <br />
-        <Link to='/login'>
-          <button>LogIn</button>
-        </Link>
-
-        <Route path='/register' component={SignUp}/>
-
+            <br />
+            <br />
+            <button>LogIn</button>
+          </>
+        )}
       </>
     );
   }

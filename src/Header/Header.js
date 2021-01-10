@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header(props) {
    
@@ -7,7 +8,7 @@ export default function Header(props) {
             <header className="logo">
                 <h1 className="main-heading">
                     <Link to="/">
-                        FinStack
+                        Fin Stack
                     </Link>
                 </h1>
             </header>
