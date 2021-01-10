@@ -13,6 +13,20 @@ export default class App extends Component {
     };
   }
 
+  handleClick = (e) => {
+      (e.target.textContent === "SignUp") ?
+      this.setState(
+          {
+              signUpForm: true
+          }
+      ) :
+      this.setState(
+          {
+              signInForm: true
+          }
+      )
+  }
+
   render() {
     return (
       <>
@@ -27,11 +41,11 @@ export default class App extends Component {
           </>
         ) : (
           <>
-            <button>SignUp</button>
+            <button onClick={this.handleClick}>SignUp</button>
 
             <br />
             <br />
-            <button>LogIn</button>
+            <button onClick={this.handleClick}>LogIn</button>
           </>
         )}
       </>
