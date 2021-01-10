@@ -8,6 +8,18 @@ export default function Nav() {
                 <li>
                     <Link to="/">Home</Link>
                 </li>
+                <li>
+                    Spending
+                </li>
+                <li>
+                    Transactions
+                </li>
+                <li>
+                    Stats
+                </li>
+                <li>
+                    Accounts
+                </li>
             </ul>
         </nav>
     )

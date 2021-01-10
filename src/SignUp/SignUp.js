@@ -214,7 +214,7 @@ export default class SignUp extends Component {
               <button type='submit'>Sign Up</button>
               <p>Already have an account?</p>
               <button type='button' onClick={this.props.handleClick}>
-                Sign In
+                LogIn
               </button>
               <div className='fetchErrorMessage'>{this.state.error}</div>
               <div className='sign-up successMessage'>{this.state.signUp}</div>

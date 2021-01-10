@@ -17,12 +17,14 @@ export default class App extends Component {
       (e.target.textContent === "SignUp") ?
       this.setState(
           {
-              signUpForm: true
+              signUpForm: true,
+              signInForm: false
           }
       ) :
       this.setState(
           {
-              signInForm: true
+              signInForm: true,
+              signUpForm: false
           }
       )
   }
@@ -33,11 +35,11 @@ export default class App extends Component {
         <Header />
         {this.state.signInForm ? (
           <>
-            <SignIn />
+            <SignIn handleClick={this.handleClick}/>
           </>
         ) : this.state.signUpForm ? (
           <>
-            <SignUp />
+            <SignUp handleClick={this.handleClick}/>
           </>
         ) : (
           <>
