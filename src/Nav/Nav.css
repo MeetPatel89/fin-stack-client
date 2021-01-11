@@ -1,0 +1,29 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+
+li {
+    display: inline-block;
+}
+
+li a,
+#log-out {
+    display: inline-block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover,
+#log-out:hover {
+    background-color: #ddd;
+}
+
+#log-out:hover {
+    cursor: pointer;
+}
