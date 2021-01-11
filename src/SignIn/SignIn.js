@@ -12,6 +12,14 @@ export default class SignIn extends Component {
     };
   }
 
+  handleClick = (e) => {
+      this.setState({
+          isLogged: false,
+          username: '',
+          password: ''
+      })
+  }
+
   handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -51,7 +59,7 @@ export default class SignIn extends Component {
         <>
         {
             (this.state.isLogged) ?
-            <HomePage/> :
+            <HomePage user={this.state.username} handleClick={this.handleClick}/> :
             <>
         <main className='container'>
           <section className='form-container sign-in-container'>

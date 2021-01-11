@@ -6,7 +6,8 @@ export default class HomePage extends Component {
   render() {
     return (
       <>
-        <Nav />
+        <div className='user'>{this.props.user}</div>
+        <Nav handleClick={this.props.handleClick} />
       </>
     );
   }
