@@ -13,12 +13,12 @@ export default class SignIn extends Component {
   }
 
   handleClick = (e) => {
-      this.setState({
-          isLogged: false,
-          username: '',
-          password: ''
-      })
-  }
+    this.setState({
+      isLogged: false,
+      username: '',
+      password: '',
+    });
+  };
 
   handleChange = (e) => {
     const name = e.target.name;
@@ -33,7 +33,17 @@ export default class SignIn extends Component {
     const username = this.state.username;
     const password = this.state.password;
     fetch(`${config.API_BASE_URL}/users/${username}`)
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response.ok)
+        if (!response.ok) {
+          this.setState({
+            usernameError: 'Please enter the correct username',
+            passwordError: '',
+          })
+          return;
+        }
+        return response.json();
+      })
       .then((user) => {
         if (!user.length) {
           this.setState({
@@ -51,74 +61,84 @@ export default class SignIn extends Component {
             ...user[0],
           });
         }
-      });
+      })
+      .catch(err => {
+        this.setState({
+          usernameError: 'Please enter the correct username',
+          passwordError: '',
+        });
+      })
   };
 
   render() {
     return (
-        <>
-        {
-            (this.state.isLogged) ?
-            <HomePage user={this.state.username} handleClick={this.handleClick}/> :
-            <>
-        <main className='container'>
-          <section className='form-container sign-in-container'>
-            <h2>PLEASE SIGN IN</h2>
-            <form className='sign-in-form' onSubmit={this.handleSubmit}>
-              <div className='label-control'>
-                <label htmlFor='username'>Username</label>
-                <input
-                  type='text'
-                  name='username'
-                  id='username'
-                  aria-label='Username for the account'
-                  aria-required='true'
-                  aria-describedby='usernameError'
-                  aria-invalid='true'
-                  value={this.state.username}
-                  onChange={this.handleChange}
-                  required
-                />
-                <div className='errorMessage' id='usernameError'>
-                  {this.state.usernameError}
-                </div>
-              </div>
+      <>
+        {this.state.isLogged ? (
+          <HomePage
+            user={this.state.username}
+            handleClick={this.handleClick}
+            userId={this.state.id}
+          />
+        ) : (
+          <>
+            <main className='container'>
+              <section className='form-container sign-in-container'>
+                <h2>PLEASE SIGN IN</h2>
+                <form className='sign-in-form' onSubmit={this.handleSubmit}>
+                  <div className='label-control'>
+                    <label htmlFor='username'>Username</label>
+                    <input
+                      type='text'
+                      name='username'
+                      id='username'
+                      aria-label='Username for the account'
+                      aria-required='true'
+                      aria-describedby='usernameError'
+                      aria-invalid='true'
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                      required
+                    />
+                    <div className='errorMessage' id='usernameError'>
+                      {this.state.usernameError}
+                    </div>
+                  </div>
 
-              <div className='label-control'>
-                <label htmlFor='password'> Password</label>
-                <input
-                  type='password'
-                  name='password'
-                  id='password'
-                  aria-label='Password for the account'
-                  aria-required='true'
-                  aria-describedby='passwordError'
-                  aria-invalid='true'
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  required
-                />
-                <div className='errorMessage' id='passwordError'>
-                  {this.state.passwordError}
-                </div>
-              </div>
+                  <div className='label-control'>
+                    <label htmlFor='password'> Password</label>
+                    <input
+                      type='password'
+                      name='password'
+                      id='password'
+                      aria-label='Password for the account'
+                      aria-required='true'
+                      aria-describedby='passwordError'
+                      aria-invalid='true'
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      required
+                    />
+                    <div className='errorMessage' id='passwordError'>
+                      {this.state.passwordError}
+                    </div>
+                  </div>
 
-              <button type='submit' className='log-in-button'>
-                LogIn
-              </button>
-              <p>Don't have an account</p>
-              <button
-                type='button'
-                className='sign-up-button'
-                onClick={this.props.handleClick}
-              >
-                SignUp
-              </button>
-            </form>
-          </section>
-        </main>
-      </>
-        }
+                  <button type='submit' className='log-in-button'>
+                    LogIn
+                  </button>
+                  <p>Don't have an account</p>
+                  <button
+                    type='button'
+                    className='sign-up-button'
+                    onClick={this.props.handleClick}
+                  >
+                    SignUp
+                  </button>
+                </form>
+              </section>
+            </main>
+          </>
+        )}
       </>
     );
   }
