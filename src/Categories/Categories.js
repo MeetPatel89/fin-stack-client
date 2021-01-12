@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
+import DisplayCategories from '../DisplayCategories/DisplayCategories';
 
 export default class Categories extends Component {
     constructor(props) {
         super(props);
         this.state = {
             expenseCat: [],
-            balanceCat: []
+            balanceCat: [],
+            displayExpense: false,
+            displayBalance: false
+        }
+    }
+
+    handleClick = (e) => {
+        const textContent = e.target.textContent;
+        if (textContent === 'Expense') {
+            this.setState({
+                displayExpense: true,
+                displayBalance: false
+            })
+        } else {
+            this.setState({
+                displayExpense: false,
+                displayBalance: true
+            })
         }
     }
 
@@ -33,8 +51,14 @@ export default class Categories extends Component {
     render() {
         return (
           <>
-            <button type='button'>Expense</button>
-            <button type='button'>Balance</button>
+            <button type='button' onClick={this.handleClick}>
+              Expense
+            </button>
+            <button type='button' onClick={this.handleClick}>
+              Balance
+            </button>
+            {this.state.displayExpense && <DisplayCategories type={'expense'} />}
+            {this.state.displayBalance && <DisplayCategories type={'balance'} />}
           </>
         );
     }

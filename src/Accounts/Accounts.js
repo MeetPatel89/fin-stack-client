@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import AddAccount from '../AddAccount/AddAccount';
 import DisplayAccounts from '../DisplayAccounts/DisplayAccounts';
 
 export default class Accounts extends Component {
@@ -10,7 +8,7 @@ export default class Accounts extends Component {
       value: '',
       error: '',
       addAccount: false,
-      newAccount: ''
+      newAccount: '',
     };
   }
 
@@ -31,47 +29,49 @@ export default class Accounts extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
-      .then((res) => res.json())
-      .then((accounts) => {
-        const duplicateAccount = accounts.filter(
-          (account) => account.accounts === this.state.value
-        );
-        if (duplicateAccount.length) {
-          this.setState({
-            error: 'The entered account already exists',
-          });
-        } else {
-          const newAccount = {
-            accounts: this.state.value,
-          };
-          fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newAccount),
-          }).then(res => res.json())
-            .then(account => {
-                console.log(account[0].accounts)
-                this.setState(prevState => {
-                    return {
-                        newAccount: account[0].accounts,
-                        addAccount: false
-                    }
-                })
+    if (this.state.value) {
+      fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
+        .then((res) => res.json())
+        .then((accounts) => {
+          const duplicateAccount = accounts.filter(
+            (account) => account.accounts === this.state.value
+          );
+          if (duplicateAccount.length) {
+            this.setState({
+              error: 'The entered account already exists',
+            });
+          } else {
+            const newAccount = {
+              accounts: this.state.value,
+            };
+            fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newAccount),
             })
-            
-        }
-      });
+              .then((res) => res.json())
+              .then((account) => {
+                console.log(account[0].accounts);
+                this.setState((prevState) => {
+                  return {
+                    newAccount: account[0].accounts,
+                    addAccount: false,
+                    value: ''
+                  };
+                });
+              });
+          }
+        });
+    }
   };
 
   componentDidMount() {
-    console.log('DisplayAccounts component is rerendered!');
     fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
       .then((res) => res.json())
       .then((accountObj) => {
-          const accounts = accountObj.map(account => account.accounts)
+        const accounts = accountObj.map((account) => account.accounts);
         this.setState({
           accounts,
         });
@@ -82,22 +82,26 @@ export default class Accounts extends Component {
     return (
       <>
         {this.state.addAccount ? (
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor='account'>Name:</label>
-            <input
-              placeholder='discover bank'
-              type='text'
-              id='account'
-              value={this.state.value}
-              onChange={this.handleChange}
-              required
-            />
-            <button className='account-submit' type='submit'>
-              Submit
-            </button>
-            {this.state.error}
-              <button className='cancel' onClick={this.handleClick}>Cancel</button>
-          </form>
+          <>
+            <form onSubmit={this.handleSubmit}>
+              <label htmlFor='account'>Name:</label>
+              <input
+                placeholder='discover bank'
+                type='text'
+                id='account'
+                value={this.state.value}
+                onChange={this.handleChange}
+                required
+              />
+              <button className='account-submit' type='submit'>
+                Submit
+              </button>
+              <button className='cancel' onClick={this.handleClick}>
+                Cancel
+              </button>
+              {this.state.error}
+            </form>
+          </>
         ) : (
           <>
             <DisplayAccounts

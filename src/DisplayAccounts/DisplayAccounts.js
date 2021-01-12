@@ -15,7 +15,9 @@ export default class DisplayAccounts extends Component {
         if (accounts) {
             const duplicateAccount = accounts.find(account => account === this.props.newAccount)
             if (!duplicateAccount) {
-                accounts.push(this.props.newAccount);
+                if (this.props.newAccount) {
+                    accounts.push(this.props.newAccount);
+                }
             }
             
         }
