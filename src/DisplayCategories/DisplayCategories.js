@@ -10,11 +10,11 @@ export default class DisplayCategories extends Component {
 
   render() {
     const displayCat = (this.props.categories) &&
-      this.props.categories.map(category => {
+      this.props.categories.map((category, i) => {
         return (
-          <>
-            <div className='category'>{category}</div>
-          </>
+          
+            <div key={i} className='category'>{category}</div>
+          
         );
       }
       )
