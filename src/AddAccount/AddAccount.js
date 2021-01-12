@@ -9,40 +9,9 @@ export default class AddAccount extends Component {
         }
     }
 
-    handleChange = (e) => {
-        this.setState({
-            value: e.target.value
-        })
-    }
+    
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
-            .then(res => res.json())
-            .then(accounts => {
-                const duplicateAccount = accounts.filter(account => account.accounts === this.state.value)
-                if (duplicateAccount.length) {
-                  this.setState({
-                    error: 'The entered account already exists',
-                  });
-                } else {
-                  const newAccount = {
-                    accounts: this.state.value,
-                  };
-                  fetch(
-                    `http://localhost:8000/api/accounts/${this.props.userId}`,
-                    {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify(newAccount),
-                    }
-                  ).then(this.props.handleClick());
-                }
-            })
-        
-    }
+   
 
     render () {
         return (

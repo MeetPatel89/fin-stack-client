@@ -8,28 +8,28 @@ export default class DisplayAccounts extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log('DisplayAccounts component is rerendered!');
-    fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
-      .then((res) => res.json())
-      .then((accounts) => {
-        this.setState({
-          accounts,
-        });
-      });
-  }
+    
 
     render() {
-        const accounts = (this.state.accounts) && this.state.accounts.map((account, i) => {
-            return (
-                <div className="accounts" key={i}>
-                    {account.accounts}
-                </div>
-            )
+        let accounts = this.props.accounts;
+        if (accounts) {
+            const duplicateAccount = accounts.find(account => account === this.props.newAccount)
+            if (!duplicateAccount) {
+                accounts.push(this.props.newAccount);
+            }
+            
+        }
+        
+        const accountsToDisplay = accounts && accounts.map((account, i) => {
+             return (
+               <div className='accounts' key={i}>
+                 {account}
+               </div>
+             );
         })
         return (
             <div className="display-accounts">
-                {accounts}
+                {accountsToDisplay}
             </div>
         )
     }
