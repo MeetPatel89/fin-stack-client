@@ -9,8 +9,17 @@ export default class DisplayCategories extends Component {
   }
 
   render() {
-    const displayCat = (this.props.categories) &&
-      this.props.categories.map((category, i) => {
+    let categories = this.props.categories;
+    if(this.props.newBalanceCat) {
+      categories.push(this.props.newBalanceCat);
+    }
+    if (this.props.newExpenseCat) {
+      categories.push(this.props.newExpenseCat);
+    }
+    
+    
+    const displayCat = (categories) &&
+      categories.map((category, i) => {
         return (
           
             <div key={i} className='category'>{category}</div>

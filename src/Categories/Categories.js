@@ -12,50 +12,104 @@ export default class Categories extends Component {
       displayExpense: false,
       displayBalance: false,
       addCategory: false,
-      value: ''
+      value: '',
+      error: '',
     };
   }
 
   handleChange = (e) => {
-      this.setState({
-        value: e.target.value,
-      });
-  }
+    this.setState({
+      value: e.target.value,
+    });
+  };
 
   handleClick = (e) => {
     const textContent = e.target.textContent;
     if (textContent === 'Add') {
-        if (this.state.displayExpense) {
-            console.log('Add expense')
-            this.setState({
-                addCategory: true,
-                displayExpense: false
-            })
-        } else {
-            console.log('Add balance')
-            this.setState({
-                addCategory: true,
-                displayBalance: false
-            })
-        }
-    }
-    else if (textContent === 'Expense') {
+      if (this.state.displayExpense) {
+        console.log('Add expense');
+        this.setState({
+          addCategory: true,
+        });
+      } else {
+        console.log('Add balance');
+        this.setState({
+          addCategory: true,
+        });
+      }
+    } else if (textContent === 'Expense') {
       this.setState({
         displayExpense: true,
         displayBalance: false,
       });
-    } else {
+    } else if (textContent === 'Balance') {
       this.setState({
         displayExpense: false,
         displayBalance: true,
+      });
+    } else {
+      this.setState({
+        addCategory: false,
       });
     }
   };
 
   handleSubmit = (e) => {
-      e.preventDefault();
-      
-  }
+    e.preventDefault();
+    if (this.state.displayExpense) {
+        const duplicateCat = this.state.expenseCat.find(category => category === this.state.value)
+        if (duplicateCat) {
+            this.setState({
+                error: 'The given expense category already exists'
+            })
+        } else {
+            const newCategory = {
+                category: this.state.value,
+                type: 'expense'
+            }
+            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCategory)
+            })
+            .then(res => res.json())
+            .then(categoryObj => {
+                this.setState({
+                    addCategory: false,
+                    newExpenseCat: categoryObj[0].category
+                })
+            })
+        }
+    } else {
+        const duplicateCat = this.state.balanceCat.find(category => category === this.state.value)
+        if (duplicateCat) {
+            this.setState({
+                error: 'The given balance category already exists'
+            })
+        } else {
+            const newCategory = {
+              category: this.state.value,
+              type: 'balance',
+            };
+            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newCategory),
+            })
+            .then(res => res.json())
+            .then(categoryObj => {
+                this.setState({
+                    addCategory: false,
+                    newBalanceCat: categoryObj[0].category
+                })
+            })
+        }
+    }
+  };
 
   componentDidMount() {
     fetch(`http://localhost:8000/api/categories/${this.props.userId}`)
@@ -81,9 +135,39 @@ export default class Categories extends Component {
   render() {
     return (
       <>
-      {(this.state.addCategory) ?
-        <>
-        <form onSubmit={this.handleSubmit}>
+        <button type='button' onClick={this.handleClick}>
+          Expense
+        </button>
+        <button type='button' onClick={this.handleClick}>
+          Balance
+        </button>
+        {this.state.displayExpense && (
+          <>
+            <DisplayCategories
+              type='Expense'
+              newExpenseCat={this.state.newExpenseCat}
+              categories={this.state.expenseCat}
+            />
+            <button type='button' onClick={this.handleClick}>
+              Add
+            </button>
+          </>
+        )}
+        {this.state.displayBalance && (
+          <>
+            <DisplayCategories
+              type='Balance'
+              newBalanceCat={this.state.newBalanceCat}
+              categories={this.state.balanceCat}
+            />
+            <button type='button' onClick={this.handleClick}>
+              Add
+            </button>
+          </>
+        )}
+        {this.state.addCategory && (
+          <>
+            <form onSubmit={this.handleSubmit}>
               <label htmlFor='category'>Category:</label>
               <input
                 placeholder='e.g. Food or Salary'
@@ -101,27 +185,6 @@ export default class Categories extends Component {
               </button>
               {this.state.error}
             </form>
-        </>  :
-        <>
-         <button type='button' onClick={this.handleClick}>
-          Expense
-        </button>
-        <button type='button' onClick={this.handleClick}>
-          Balance
-        </button>
-        </>
-    }
-       
-        {this.state.displayExpense && (
-            <>
-          <DisplayCategories type="Expense" categories={this.state.expenseCat} />
-          <button type="button" onClick={this.handleClick}>Add</button>
-          </>
-        )}
-        {this.state.displayBalance && (
-            <>
-          <DisplayCategories type="Balance" categories={this.state.balanceCat} />
-          <button type="button" onClick={this.handleClick}>Add</button>
           </>
         )}
       </>
