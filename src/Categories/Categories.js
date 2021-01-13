@@ -52,6 +52,7 @@ export default class Categories extends Component {
         displayBalance: true,
       });
     } else {
+      e.preventDefault();
       this.setState({
         addCategory: false,
       });

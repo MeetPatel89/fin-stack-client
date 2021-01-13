@@ -20,7 +20,7 @@ export default class HomePage extends Component {
         <Nav handleClick={this.props.handleClick} />
         <Route path="/accounts" component={() => <Accounts userId={this.props.userId}/>} />
         <Route path="/categories" component={() => <Categories userId={this.props.userId} />} />
-        <Route path="/transactions" component={ () => <Transactions />} />
+        <Route path="/transactions" component={ () => <Transactions userId={this.props.userId} />} />
         
       </>
     );
