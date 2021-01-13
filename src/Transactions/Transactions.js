@@ -7,25 +7,36 @@ export default class Transactions extends Component {
     super(props);
     this.state = {
       selectedDate: new Date(),
-      transactions: []
+      transactions: [],
+      categories: [],
+      accounts: []
     };
   }
 
   handleChange = (date) => {
-    console.log(date);
     this.setState({
       selectedDate: date,
     });
   };
 
   componentDidMount() {
-      fetch(`http://localhost:8000/api/transactions/${this.props.userId}`)
+     const transactions = fetch(`http://localhost:8000/api/transactions/${this.props.userId}`)
         .then(res => res.json())
-        .then(transactions => {
-            this.setState({
-                transactions
+    const categories = fetch(
+      `http://localhost:8000/api/categories/${this.props.userId}`)
+        .then(res => res.json())
+    
+    const accounts = fetch(
+      `http://localhost:8000/api/accounts/${this.props.userId}`
+    ).then(res => res.json());
+    Promise.all([transactions, categories, accounts])
+            .then(response => {
+                this.setState({
+                    transactions: response[0],
+                    categories: response[1],
+                    accounts: response[2]
+                })
             })
-        })
   }
 
   render() {
