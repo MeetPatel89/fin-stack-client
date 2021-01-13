@@ -30,11 +30,15 @@ export default class Categories extends Component {
         console.log('Add expense');
         this.setState({
           addCategory: true,
+          newBalanceCat: '',
+          newExpenseCat: ''
         });
       } else {
         console.log('Add balance');
         this.setState({
           addCategory: true,
+          newBalanceCat: '',
+          newExpenseCat: ''
         });
       }
     } else if (textContent === 'Expense') {
@@ -78,7 +82,8 @@ export default class Categories extends Component {
             .then(categoryObj => {
                 this.setState({
                     addCategory: false,
-                    newExpenseCat: categoryObj[0].category
+                    newExpenseCat: categoryObj[0].category,
+                    value: ''
                 })
             })
         }
@@ -104,7 +109,8 @@ export default class Categories extends Component {
             .then(categoryObj => {
                 this.setState({
                     addCategory: false,
-                    newBalanceCat: categoryObj[0].category
+                    newBalanceCat: categoryObj[0].category,
+                    value: ''
                 })
             })
         }
