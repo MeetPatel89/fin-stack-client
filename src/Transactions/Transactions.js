@@ -126,6 +126,31 @@ export default class Transactions extends Component {
             error: 'Please select a time'
         })
     } else {
+        if (this.state.category.isNew) {
+            const newCategory = {
+              category: this.state.category.value,
+              type: this.state.type,
+            };
+            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newCategory),
+            });
+        }
+        if (this.state.account.isNew) {
+            const newAccount = {
+              accounts: this.state.account.value,
+            };
+            fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newAccount),
+            });
+        }
         const datetime = `${this.state.date}T${this.state.time}`;
         console.log(datetime);
         console.log(new Date(datetime).toISOString());
