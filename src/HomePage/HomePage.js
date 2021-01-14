@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Accounts from '../Accounts/Accounts';
 import Categories from '../Categories/Categories';
 import Transactions from '../Transactions/Transactions';
+import Spending from '../Spending/Spending';
 import Nav from '../Nav/Nav';
 
 export default class HomePage extends Component {
@@ -21,6 +22,7 @@ export default class HomePage extends Component {
         <Route path="/accounts" component={() => <Accounts userId={this.props.userId}/>} />
         <Route path="/categories" component={() => <Categories userId={this.props.userId} />} />
         <Route path="/transactions" component={ () => <Transactions userId={this.props.userId} />} />
+        <Route exact path="/" component={() => <Spending userId={this.props.userId} />} />
         
       </>
     );
