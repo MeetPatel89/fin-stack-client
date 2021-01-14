@@ -18,7 +18,7 @@ export default class Transactions extends Component {
       account: '',
       date: '',
       time: '',
-      error: ''
+      error: '',
     };
   }
 
@@ -48,9 +48,9 @@ export default class Transactions extends Component {
         });
       }
     } else {
-        this.setState({
-            category: ''
-        })
+      this.setState({
+        category: '',
+      });
     }
   };
 
@@ -72,9 +72,9 @@ export default class Transactions extends Component {
         });
       }
     } else {
-        this.setState({
-            account: ''
-        })
+      this.setState({
+        account: '',
+      });
     }
   };
 
@@ -102,62 +102,69 @@ export default class Transactions extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (!this.state.category) {
-        this.setState({
-            error: 'Please select a category'
-        })
+      this.setState({
+        error: 'Please select a category',
+      });
     } else if (!this.state.account) {
-        this.setState({
-            error: 'Please select an account'
-        })
+      this.setState({
+        error: 'Please select an account',
+      });
     } else if (!this.state.type) {
-        this.setState({
-            error: 'Please select a type'
-        })
+      this.setState({
+        error: 'Please select a type',
+      });
     } else if (!this.state.amount) {
-        this.setState({
-            error: 'Please enter an amount'
-        })
+      this.setState({
+        error: 'Please enter an amount',
+      });
     } else if (!this.state.date) {
-        this.setState({
-            error: 'Please select a date'
-        })
+      this.setState({
+        error: 'Please select a date',
+      });
     } else if (!this.state.time) {
-        this.setState({
-            error: 'Please select a time'
-        })
+      this.setState({
+        error: 'Please select a time',
+      });
     } else {
-        if (this.state.category.isNew) {
-            const newCategory = {
-              category: this.state.category.value,
-              type: this.state.type,
-            };
-            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(newCategory),
-            });
-        }
-        if (this.state.account.isNew) {
-            const newAccount = {
-              accounts: this.state.account.value,
-            };
-            fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(newAccount),
-            });
-        }
-        const datetime = `${this.state.date}T${this.state.time}`;
-        console.log(datetime);
-        console.log(new Date(datetime).toISOString());
+      if (this.state.category.isNew) {
+        const newCategory = {
+          category: this.state.category.value,
+          type: this.state.type,
+        };
+        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newCategory),
+        });
+      }
+      if (this.state.account.isNew) {
+        const newAccount = {
+          accounts: this.state.account.value,
+        };
+        fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newAccount),
+        });
+      }
+      const datetime = new Date(`${this.state.date}T${this.state.time}`).toISOString();
+      const accounts = this.state.account.value;
+      const category = this.state.category.value;
+      const amount = this.state.amount;
+      const duplicateTransaction = this.state.transactions.find(transaction => transaction.date_time === datetime && transaction.accounts === accounts && transaction.category === category && transaction.amount === amount);
+      if (duplicateTransaction) {
+          this.setState({
+              error: 'The entered transaction already exists'
+          })
+      } else {
+          
+      }
+
     }
-    
-    
-    
   };
 
   componentDidMount() {
@@ -262,7 +269,6 @@ export default class Transactions extends Component {
                 name='amount'
                 value={this.state.amount}
                 onChange={this.handleChange}
-                
               />
             </label>
             <label>
@@ -272,7 +278,6 @@ export default class Transactions extends Component {
                 name='date'
                 value={this.state.date}
                 onChange={this.handleChange}
-                
               />
             </label>
             <label>
@@ -282,7 +287,6 @@ export default class Transactions extends Component {
                 name='time'
                 value={this.state.time}
                 onChange={this.handleChange}
-                
               />
             </label>
             <button type='submit'>Submit</button>
