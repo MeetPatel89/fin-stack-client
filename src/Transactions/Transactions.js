@@ -161,7 +161,19 @@ export default class Transactions extends Component {
               error: 'The entered transaction already exists'
           })
       } else {
-          
+          const newTransaction = {
+              accounts,
+              category,
+              amount,
+              date_time: datetime
+          }
+          fetch(`http://localhost:8000/api/transactions/${this.props.userId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTransaction),
+          });
       }
 
     }
