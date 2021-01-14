@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import CreatableSelect from 'react-select/creatable';
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class Transactions extends Component {
       amount: '',
       account: '',
       date: '',
-      time: ''
+      time: '' 
     };
   }
 
@@ -24,6 +25,17 @@ export default class Transactions extends Component {
       selectedDate: date,
     });
   };
+
+  handleCategoryChange = (e) => {
+    console.log('Event activated');
+    console.log(e);
+    (e['__isNew__']) && console.log('This is a new input')
+  }
+
+  handleAccountChange = (e) => {
+      console.log(e);
+      e['__isNew__'] && console.log('This is a new input');
+  }
 
   handleClick = () => {
       this.setState(prevState => {
@@ -38,6 +50,13 @@ export default class Transactions extends Component {
     this.setState({
         [name]: e.target.value
     })
+  }
+
+  handleSubmit = (e) => {
+      e.preventDefault();
+      const datetime = `${this.state.date}T${this.state.time}`
+      console.log(datetime);
+      console.log(new Date(datetime).toISOString())
   }
 
   componentDidMount() {
@@ -74,19 +93,40 @@ export default class Transactions extends Component {
         </div>
         )) :
         <div className="no-transactions">There are no transactions for this day</div>
+
+    const categories = this.state.categories.map(categoryObj => {
+        return {
+            value: categoryObj.category,
+            label: categoryObj.category,
+            name: 'Category'
+        }
+    })
+
+    const accounts = this.state.accounts.map(accountObj => {
+        return {
+            value: accountObj.accounts,
+            label: accountObj.accounts
+        }
+    })
     
     return (
         <>
         {(this.state.addTransaction) ?
             <form onSubmit={this.handleSubmit}>
-            <label>
-                Category:
-                <input type="text" name="category" value={this.state.category} onChange={this.handleChange} />
-            </label>
-            <label>
-                Account:
-                <input type="text" name="account" value={this.state.account} onChange={this.handleChange} />
-            </label>
+                <label htmlFor="categories">Choose Category:</label>
+            <CreatableSelect
+                isClearable
+                id="categories"
+                onChange={this.handleCategoryChange}
+                options={categories}
+            />
+            <label htmlFor="accounts">Choose Account:</label>
+            <CreatableSelect
+                isClearable
+                id="accounts"
+                onChange={this.handleAccountChange}
+                options={accounts}
+            />
             <label>
                 Amount(in dollars):
                 <input type="text" name="amount" value={this.state.amount} onChange={this.handleChange} />
