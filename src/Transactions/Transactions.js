@@ -10,8 +10,11 @@ export default class Transactions extends Component {
     this.state = {
       selectedDate: new Date(),
       transactions: [],
+      newTransaction: '',
       categories: [],
+      newCategory: '',
       accounts: [],
+      newAccount: '',
       addTransaction: false,
       category: '',
       amount: '',
@@ -25,6 +28,9 @@ export default class Transactions extends Component {
   handleDateChange = (date) => {
     this.setState({
       selectedDate: date,
+      newTransaction: '',
+      newAccount: '',
+      newCategory: ''
     });
   };
 
@@ -88,6 +94,9 @@ export default class Transactions extends Component {
     this.setState((prevState) => {
       return {
         addTransaction: !prevState.addTransaction,
+        newTransaction: '',
+        newAccount: '',
+        newCategory: ''
       };
     });
   };
@@ -96,6 +105,9 @@ export default class Transactions extends Component {
     const name = e.target.name;
     this.setState({
       [name]: e.target.value,
+      newTransaction: '',
+      newAccount: '',
+      newCategory: ''
     });
   };
 
@@ -137,7 +149,13 @@ export default class Transactions extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(newCategory),
-        });
+        })
+          .then((res) => res.json())
+          .then((category) => {
+            this.setState({
+              newCategory: category[0],
+            });
+          });
       }
       if (this.state.account.isNew) {
         const newAccount = {
@@ -149,33 +167,53 @@ export default class Transactions extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(newAccount),
-        });
+        })
+          .then((res) => res.json())
+          .then((account) => {
+            this.setState({
+              newAccount: account[0],
+            });
+          });
       }
-      const datetime = new Date(`${this.state.date}T${this.state.time}`).toISOString();
+      const datetime = new Date(
+        `${this.state.date}T${this.state.time}`
+      ).toISOString();
       const accounts = this.state.account.value;
       const category = this.state.category.value;
       const amount = this.state.amount;
-      const duplicateTransaction = this.state.transactions.find(transaction => transaction.date_time === datetime && transaction.accounts === accounts && transaction.category === category && transaction.amount === amount);
+      const duplicateTransaction = this.state.transactions.find(
+        (transaction) =>
+          transaction.date_time === datetime &&
+          transaction.accounts === accounts &&
+          transaction.category === category &&
+          transaction.amount === amount
+      );
       if (duplicateTransaction) {
-          this.setState({
-              error: 'The entered transaction already exists'
-          })
+        this.setState({
+          error: 'The entered transaction already exists',
+        });
       } else {
-          const newTransaction = {
-              accounts,
-              category,
-              amount,
-              date_time: datetime
-          }
-          fetch(`http://localhost:8000/api/transactions/${this.props.userId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newTransaction),
+        const newTransaction = {
+          accounts,
+          category,
+          amount,
+          date_time: datetime,
+        };
+        fetch(`http://localhost:8000/api/transactions/${this.props.userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newTransaction),
+        })
+          .then((res) => res.json())
+          .then((transaction) => {
+            this.setState({
+              newTransaction: transaction[0],
+              addTransaction: false,
+            });
           });
       }
-
     }
   };
 
@@ -200,6 +238,14 @@ export default class Transactions extends Component {
   }
 
   render() {
+    
+      this.state.newTransaction &&
+        this.state.transactions.push(this.state.newTransaction);
+      this.state.newCategory &&
+        this.state.categories.push(this.state.newCategory);
+      this.state.newAccount && this.state.accounts.push(this.state.newAccount);
+    
+
     const dailyTransactions =
       this.state.transactions &&
       this.state.transactions.filter(
