@@ -14,9 +14,11 @@ export default class Spending extends Component {
   }
 
   handleClick = () => {
-      this.setState({
-          showStats: true
-      })
+      this.setState(prevState => (
+          {
+              showStats: !prevState.showStats
+          }
+      ))
   }
 
   componentDidMount() {
@@ -91,7 +93,7 @@ export default class Spending extends Component {
     return (
       <>
         {this.state.showStats ? (
-          <Stats />
+          <Stats handleClick={this.handleClick} />
         ) : (
           <>
             <h2>Expenditure</h2>
