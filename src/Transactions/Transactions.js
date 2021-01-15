@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
+import './Transactions.css';
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -23,7 +24,13 @@ export default class Transactions extends Component {
       time: '',
       type: '',
       error: '',
+      transactionClick: false
     };
+  }
+
+  handleTransactionClick = (e) => {
+      console.log('Transaction clicked!')
+      console.log(e.target)
   }
 
   handleDateChange = (date) => {
@@ -257,16 +264,38 @@ export default class Transactions extends Component {
           this.state.selectedDate.toDateString()
       );
     const transactionsDisplay = dailyTransactions.length ? (
-      dailyTransactions.map((transaction, i) => (
-        <div key={i} className='display-transaction'>
-          <span className='category'>{transaction.category}</span>
-          <span className='amount'>{transaction.amount}</span>
-          <span className='date'>
-            {new Date(transaction.date_time).toDateString()}
-          </span>
-          <span className='account'>{transaction.accounts}</span>
-        </div>
-      ))
+      dailyTransactions.map((transaction, i) =>
+        !this.state.transactionClick ? (
+          <div
+            key={i}
+            className='display-transaction'
+            onClick={this.handleTransactionClick}
+          >
+            <span className='category'>{transaction.category}</span>
+            <span className='amount'>{transaction.amount}</span>
+            <span className='date'>
+              {new Date(transaction.date_time).toDateString()}
+            </span>
+            <span className='account'>{transaction.accounts}</span>
+          </div>
+        ) : (
+          <div
+            key={i}
+            className='display-transaction'
+            onClick={this.handleTransactionClick}
+          >
+            <span className='category'>{transaction.category}</span>
+            <span className='amount'>{transaction.amount}</span>
+            <span className='date'>
+              {new Date(transaction.date_time).toDateString()}
+            </span>
+            <span className='account'>{transaction.accounts}</span>
+            <button type="button">Delete</button>
+            <button type="button">Edit</button>
+            <button type="button">Cancel</button>
+          </div>
+        )
+      )
     ) : (
       <div className='no-transactions'>
         There are no transactions for this day

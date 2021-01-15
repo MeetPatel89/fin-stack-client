@@ -1,0 +1,8 @@
+.display-transaction {
+  margin: 10px;
+}
+
+.display-transaction:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
