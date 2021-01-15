@@ -19,6 +19,7 @@ export default class EditTransaction extends Component {
               id='categories'
               onChange={this.handleCategoryChange}
               options={this.props.categories}
+              value={this.props.category}
               
             />
             <label htmlFor='accounts'>Account:</label>
@@ -27,19 +28,21 @@ export default class EditTransaction extends Component {
               id='accounts'
               onChange={this.handleAccountChange}
               options={this.props.accounts}
+              value={this.props.account}
             />
             <label htmlFor='type'>Type:</label>
             <Select
               id='type'
               onChange={this.handleTypeChange}
               options={this.props.types}
+              value={this.props.type}
             />
             <label>
               Amount(in dollars):
               <input
                 type='text'
                 name='amount'
-                value={this.state.amount}
+                value={this.props.amount}
                 onChange={this.handleChange}
               />
             </label>
@@ -48,7 +51,7 @@ export default class EditTransaction extends Component {
               <input
                 type='date'
                 name='date'
-                value={this.state.date}
+                value={this.props.date}
                 onChange={this.handleChange}
               />
             </label>
@@ -57,7 +60,7 @@ export default class EditTransaction extends Component {
               <input
                 type='time'
                 name='time'
-                value={this.state.time}
+                value={this.props.time}
                 onChange={this.handleChange}
               />
             </label>

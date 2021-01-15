@@ -323,8 +323,21 @@ export default class Transactions extends Component {
       ];
 
     const transactionsDisplay = dailyTransactions.length ? (
-      dailyTransactions.map((transaction, i) => (
-        <Fragment key={i}>
+      dailyTransactions.map((transaction, i) => {
+        let month = new Date(transaction.date_time).getMonth() + 1;
+        if (month < 10) {
+            month = `0${month}`
+        }
+        let hour = new Date(transaction.date_time).getHours();
+        let minutes = new Date(transaction.date_time).getMinutes();
+        if (hour < 10) {
+            hour = `0${hour}`
+        }
+        if (minutes < 10) {
+            minutes = `0${minutes}`
+        }
+
+       return <Fragment key={i}>
           <div
             id={transaction.id}
             className='display-transaction'
@@ -337,14 +350,37 @@ export default class Transactions extends Component {
             </span>
             <span className='account'>{transaction.accounts}</span>
           </div>
-          <EditTransaction display="hidden" categories={categories} accounts={accounts} types={types} />
+          <EditTransaction
+            category={{
+              label: transaction.category,
+              value: transaction.category,
+            }}
+            account={{
+              label: transaction.accounts,
+              value: transaction.accounts,
+            }}
+            type={{ label: transaction.type, value: transaction.type }}
+            display='hidden'
+            categories={categories}
+            accounts={accounts}
+            types={types}
+            amount={transaction.amount}
+            date={`${new Date(transaction.date_time).getFullYear()}-${month}-${new Date(transaction.date_time).getDate()}`}
+            time={`${hour}:${minutes}`}
+          />
           <div className='buttons hidden'>
-            <button type='button' onClick={this.handleDeleteClick}>Delete</button>
-            <button type='button' onClick={this.handleEditClick}>Edit</button>
-            <button type='button' onClick={this.handleCancelClick}>Cancel</button>
+            <button type='button' onClick={this.handleDeleteClick}>
+              Delete
+            </button>
+            <button type='button' onClick={this.handleEditClick}>
+              Edit
+            </button>
+            <button type='button' onClick={this.handleCancelClick}>
+              Cancel
+            </button>
           </div>
         </Fragment>
-      ))
+      })
     ) : (
       <div className='no-transactions'>
         There are no transactions for this day
