@@ -19,7 +19,6 @@ export default class Nav extends Component {
             <Link to='/transactions'>Transactions</Link>
           </li>
           <li><Link to='/categories'>Categories</Link></li>
-          <li><Link to='/stats'>Stats</Link></li>
           <li><Link to='/accounts'>Accounts</Link></li>
           <li id="log-out" onClick={this.props.handleClick}>LogOut</li>
         </ul>
