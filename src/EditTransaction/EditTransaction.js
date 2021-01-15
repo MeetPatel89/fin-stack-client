@@ -216,7 +216,7 @@ export default class EditTransaction extends Component {
           />
         </label>
         <button type='submit'>Submit</button>
-        <button type='button' onClick={this.handleClick}>
+        <button type='button' onClick={this.props.handleCancelEditClick}>
           Cancel
         </button>
         {this.state.error}

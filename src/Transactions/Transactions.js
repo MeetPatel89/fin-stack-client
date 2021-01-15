@@ -69,6 +69,12 @@ export default class Transactions extends Component {
     formElement.classList.remove('hidden');
   };
 
+  handleCancelEditClick = (e) => {
+      console.log(e.target)
+      const formElement = e.target.parentElement;
+      formElement.classList.add('hidden')
+  }
+
   handleDateChange = (date) => {
     this.setState({
       selectedDate: date,
@@ -376,6 +382,7 @@ export default class Transactions extends Component {
                 transaction.date_time
               ).getDate()}`}
               time={`${hour}:${minutes}`}
+              handleCancelEditClick={this.handleCancelEditClick}
             />
             <div className='buttons hidden'>
               <button id={transaction.id} type='button' onClick={this.handleDeleteClick}>
