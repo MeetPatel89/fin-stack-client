@@ -31,41 +31,43 @@ export default class Transactions extends Component {
 
   handleTransactionClick = (e) => {
     const buttons = e.target.parentElement.nextSibling.nextSibling;
-    console.log(buttons)
-    buttons.classList.remove('hidden')
+    console.log(buttons);
+    buttons.classList.remove('hidden');
   };
 
   handleCancelClick = (e) => {
-      console.log('Cancel clicked!')
-      const buttons = e.target.parentElement;
-      buttons.classList.add('hidden')
-  }
+    console.log('Cancel clicked!');
+    const buttons = e.target.parentElement;
+    buttons.classList.add('hidden');
+  };
 
   handleDeleteClick = (e) => {
-      const transaction = e.target.parentElement.previousSibling;
-      const deleteId = transaction.id
-      console.log(deleteId)
-      fetch(`http://localhost:8000/api/transactions/${deleteId}`, {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      }).then(
-          this.setState(prevState => {
-              const postDeleteTransactions = prevState.transactions.filter(transaction => transaction.id !== parseInt(deleteId))
-              return {
-                  transactions: postDeleteTransactions
-              }
-          })
-      )
-  }
+    const transaction = e.target;
+    const deleteId = transaction.id;
+    console.log(deleteId);
+    fetch(`http://localhost:8000/api/transactions/${deleteId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(
+      this.setState((prevState) => {
+        const postDeleteTransactions = prevState.transactions.filter(
+          (transaction) => transaction.id !== parseInt(deleteId)
+        );
+        return {
+          transactions: postDeleteTransactions,
+        };
+      })
+    );
+  };
 
   handleEditClick = (e) => {
-      const buttons = e.target.parentElement;
-      const formElement = buttons.previousSibling;
-      buttons.classList.add('hidden');
-      formElement.classList.remove('hidden')
-  }
+    const buttons = e.target.parentElement;
+    const formElement = buttons.previousSibling;
+    buttons.classList.add('hidden');
+    formElement.classList.remove('hidden');
+  };
 
   handleDateChange = (date) => {
     this.setState({
@@ -296,98 +298,104 @@ export default class Transactions extends Component {
           new Date(transaction.date_time).toDateString() ===
           this.state.selectedDate.toDateString()
       );
-      
-      const categories = this.state.categories.map((categoryObj) => {
-        return {
-          value: categoryObj.category,
-          label: categoryObj.category,
-        };
-      });
 
-      const accounts = this.state.accounts.map((accountObj) => {
-        return {
-          value: accountObj.accounts,
-          label: accountObj.accounts,
-        };
-      });
+    const categories = this.state.categories.map((categoryObj) => {
+      return {
+        value: categoryObj.category,
+        label: categoryObj.category,
+      };
+    });
 
-      const types = [
-        {
-          value: 'expense',
-          label: 'Expense',
-        },
-        {
-          value: 'balance',
-          label: 'Balance',
-        },
-      ];
+    const accounts = this.state.accounts.map((accountObj) => {
+      return {
+        value: accountObj.accounts,
+        label: accountObj.accounts,
+      };
+    });
+
+    const types = [
+      {
+        value: 'expense',
+        label: 'Expense',
+      },
+      {
+        value: 'balance',
+        label: 'Balance',
+      },
+    ];
 
     const transactionsDisplay = dailyTransactions.length ? (
       dailyTransactions.map((transaction, i) => {
         let month = new Date(transaction.date_time).getMonth() + 1;
         if (month < 10) {
-            month = `0${month}`
+          month = `0${month}`;
         }
         let hour = new Date(transaction.date_time).getHours();
         let minutes = new Date(transaction.date_time).getMinutes();
         if (hour < 10) {
-            hour = `0${hour}`
+          hour = `0${hour}`;
         }
         if (minutes < 10) {
-            minutes = `0${minutes}`
+          minutes = `0${minutes}`;
         }
 
-       return <Fragment key={i}>
-          <div
-            id={transaction.id}
-            className='display-transaction'
-            onClick={this.handleTransactionClick}
-          >
-            <span className='category'>{transaction.category}</span>
-            <span className='amount'>{transaction.amount}</span>
-            <span className='date'>
-              {new Date(transaction.date_time).toDateString()}
-            </span>
-            <span className='account'>{transaction.accounts}</span>
-          </div>
-          <EditTransaction
-            category={{
-              label: transaction.category,
-              value: transaction.category,
-            }}
-            account={{
-              label: transaction.accounts,
-              value: transaction.accounts,
-            }}
-            type={{ label: transaction.type, value: transaction.type }}
-            display='hidden'
-            categories={categories}
-            accounts={accounts}
-            types={types}
-            amount={transaction.amount}
-            date={`${new Date(transaction.date_time).getFullYear()}-${month}-${new Date(transaction.date_time).getDate()}`}
-            time={`${hour}:${minutes}`}
-          />
-          <div className='buttons hidden'>
-            <button type='button' onClick={this.handleDeleteClick}>
-              Delete
-            </button>
-            <button type='button' onClick={this.handleEditClick}>
-              Edit
-            </button>
-            <button type='button' onClick={this.handleCancelClick}>
-              Cancel
-            </button>
-          </div>
-        </Fragment>
+        return (
+          <Fragment key={i}>
+            <div
+              id={transaction.id}
+              className='display-transaction'
+              onClick={this.handleTransactionClick}
+            >
+              <span className='category'>{transaction.category}</span>
+              <span className='amount'>{transaction.amount}</span>
+              <span className='date'>
+                {new Date(transaction.date_time).toDateString()}
+              </span>
+              <span className='account'>{transaction.accounts}</span>
+            </div>
+            <EditTransaction
+            userId={this.props.userId}
+              id={transaction.id}
+              category={{
+                label: transaction.category,
+                value: transaction.category,
+              }}
+              account={{
+                label: transaction.accounts,
+                value: transaction.accounts,
+              }}
+              type={{ label: transaction.type, value: transaction.type }}
+              display='hidden'
+              categories={categories}
+              accounts={accounts}
+              types={types}
+              amount={transaction.amount}
+              date={`${new Date(
+                transaction.date_time
+              ).getFullYear()}-${month}-${new Date(
+                transaction.date_time
+              ).getDate()}`}
+              time={`${hour}:${minutes}`}
+            />
+            <div className='buttons hidden'>
+              <button id={transaction.id} type='button' onClick={this.handleDeleteClick}>
+                Delete
+              </button>
+              <button type='button' onClick={this.handleEditClick}>
+                Edit
+              </button>
+              <button type='button' onClick={this.handleCancelClick}>
+                Cancel
+              </button>
+            </div>
+          </Fragment>
+        );
       })
     ) : (
       <div className='no-transactions'>
         There are no transactions for this day
       </div>
     );
-
-    
 
     return (
       <>
