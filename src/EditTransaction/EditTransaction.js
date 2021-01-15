@@ -17,65 +17,65 @@ export default class EditTransaction extends Component {
 
   handleCategoryChange = (e) => {
     console.log(e);
-     if (e) {
-       if (e['__isNew__']) {
-         this.setState({
-           category: {
-             value: e.value,
-             label: e.label,
-             isNew: true,
-           },
-         });
-       } else {
-         this.setState({
-           category: {
-             value: e.value,
-             label: e.label,
-             isNew: false,
-           },
-         });
-       }
-     } else {
-       this.setState({
-         category: '',
-       });
-     }
+    if (e) {
+      if (e['__isNew__']) {
+        this.setState({
+          category: {
+            value: e.value,
+            label: e.label,
+            isNew: true,
+          },
+        });
+      } else {
+        this.setState({
+          category: {
+            value: e.value,
+            label: e.label,
+            isNew: false,
+          },
+        });
+      }
+    } else {
+      this.setState({
+        category: '',
+      });
+    }
   };
 
   handleAccountChange = (e) => {
     console.log(e);
-     if (e) {
-       if (e['__isNew__']) {
-         this.setState({
-           account: {
-             value: e.value,
-             label: e.label,
-             isNew: true,
-           },
-         });
-       } else {
-         this.setState({
-           account: {
-             value: e.value,
-             label: e.label,
-             isNew: false,
-           },
-         });
-       }
-     } else {
-       this.setState({
-         account: '',
-       });
-     }
+    if (e) {
+      if (e['__isNew__']) {
+        this.setState({
+          account: {
+            value: e.value,
+            label: e.label,
+            isNew: true,
+          },
+        });
+      } else {
+        this.setState({
+          account: {
+            value: e.value,
+            label: e.label,
+            isNew: false,
+          },
+        });
+      }
+    } else {
+      this.setState({
+        account: '',
+      });
+    }
   };
 
   handleTypeChange = (e) => {
     console.log(e);
     this.setState({
       type: {
-          value: e.value,
-          label: e.label
-      }
+        value: e.value,
+        label: e.label,
+      },
     });
   };
 
@@ -91,6 +91,7 @@ export default class EditTransaction extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let updatedTransaction = {};
+    let postCategory, postAccount;
     if (this.state.category.value !== this.props.category.value) {
       Object.assign(updatedTransaction, {
         category: this.state.category.value,
@@ -100,40 +101,34 @@ export default class EditTransaction extends Component {
           category: this.state.category.value,
           type: this.state.type.value,
         };
-        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newCategory),
-        })
-          .then((res) => res.json())
-          .then((category) => {
-            this.setState({
-              newCategory: category[0],
-            });
-          });
+        postCategory = fetch(
+          `http://localhost:8000/api/categories/${this.props.userId}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCategory),
+          }
+        );
       }
     }
     if (this.state.account.value !== this.props.account.value) {
-      Object.assign(updatedTransaction, { account: this.state.account.value });
+      Object.assign(updatedTransaction, { accounts: this.state.account.value });
       if (this.state.account.isNew) {
         const newAccount = {
           accounts: this.state.account.value,
         };
-        fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newAccount),
-        })
-          .then((res) => res.json())
-          .then((account) => {
-            this.setState({
-              newAccount: account[0],
-            });
-          });
+        postAccount = fetch(
+          `http://localhost:8000/api/accounts/${this.props.userId}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newAccount),
+          }
+        );
       }
     }
     if (this.state.type.value !== this.props.type.value) {
@@ -152,14 +147,19 @@ export default class EditTransaction extends Component {
         ).toISOString(),
       });
     }
-    console.log(updatedTransaction)
-     fetch(`http://localhost:8000/api/transactions/${this.props.id}`, {
-       method: 'PATCH',
-       headers: {
-         'Content-type': 'application/json',
-       },
-       body: JSON.stringify(updatedTransaction),
-     });
+    console.log(updatedTransaction);
+    const postTransaction = fetch(
+      `http://localhost:8000/api/transactions/${this.props.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(updatedTransaction),
+      }
+    );
+    Promise.all([postCategory, postAccount, postTransaction]).then( () => {
+    this.props.handleChangeKey();})
   };
 
   render() {

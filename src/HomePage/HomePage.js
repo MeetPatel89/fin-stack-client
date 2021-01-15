@@ -7,7 +7,22 @@ import Spending from '../Spending/Spending';
 import Nav from '../Nav/Nav';
 
 export default class HomePage extends Component {
- 
+  constructor(props) {
+    super(props);
+    this.state = {
+      key: 0
+    }
+  }
+
+  handleChangeKey = () => {
+    console.log('Handle Change key works')
+    console.log(this.state.key)
+    this.setState(prevState => {
+      return {
+        key: prevState.key + 1
+      }
+    })
+  }
 
   render() {
     return (
@@ -24,7 +39,7 @@ export default class HomePage extends Component {
         />
         <Route
           path='/transactions'
-          component={() => <Transactions userId={this.props.userId} />}
+          component={() => <Transactions key={this.state.key} handleChangeKey={this.handleChangeKey} userId={this.props.userId} />}
         />
         <Route
           exact

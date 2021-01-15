@@ -270,6 +270,26 @@ export default class Transactions extends Component {
     }
   };
 
+  componentWillUnmount = () => {
+      const transactions = fetch(
+        `http://localhost:8000/api/transactions/${this.props.userId}`
+      ).then((res) => res.json());
+      const categories = fetch(
+        `http://localhost:8000/api/categories/${this.props.userId}`
+      ).then((res) => res.json());
+
+      const accounts = fetch(
+        `http://localhost:8000/api/accounts/${this.props.userId}`
+      ).then((res) => res.json());
+      Promise.all([transactions, categories, accounts]).then((response) => {
+        this.setState({
+          transactions: response[0],
+          categories: response[1],
+          accounts: response[2],
+        });
+      });
+  }
+
   componentDidMount() {
     const transactions = fetch(
       `http://localhost:8000/api/transactions/${this.props.userId}`
@@ -360,6 +380,8 @@ export default class Transactions extends Component {
               <span className='account'>{transaction.accounts}</span>
             </div>
             <EditTransaction
+            handleChangeKey={this.props.handleChangeKey}
+            handlePatchClick={this.handlePatchClick}
             userId={this.props.userId}
               id={transaction.id}
               category={{
