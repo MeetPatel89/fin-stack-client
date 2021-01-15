@@ -21,6 +21,7 @@ export default class Transactions extends Component {
       account: '',
       date: '',
       time: '',
+      type: '',
       error: '',
     };
   }
@@ -181,12 +182,13 @@ export default class Transactions extends Component {
       const accounts = this.state.account.value;
       const category = this.state.category.value;
       const amount = this.state.amount;
+      const type = this.state.type;
       const duplicateTransaction = this.state.transactions.find(
         (transaction) =>
           transaction.date_time === datetime &&
           transaction.accounts === accounts &&
           transaction.category === category &&
-          transaction.amount === amount
+          transaction.amount === amount && transaction.type === type
       );
       if (duplicateTransaction) {
         this.setState({
@@ -197,6 +199,7 @@ export default class Transactions extends Component {
           accounts,
           category,
           amount,
+          type,
           date_time: datetime,
         };
         fetch(`http://localhost:8000/api/transactions/${this.props.userId}`, {
