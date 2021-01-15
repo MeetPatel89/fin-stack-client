@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
+import EditTransaction from '../EditTransaction/EditTransaction';
 import './Transactions.css';
 
 export default class Transactions extends Component {
@@ -29,7 +30,7 @@ export default class Transactions extends Component {
   }
 
   handleTransactionClick = (e) => {
-    const buttons = e.target.parentElement.nextSibling;
+    const buttons = e.target.parentElement.nextSibling.nextSibling;
     console.log(buttons)
     buttons.classList.remove('hidden')
   };
@@ -60,7 +61,10 @@ export default class Transactions extends Component {
   }
 
   handleEditClick = (e) => {
-      console.log('Edit Clicked!')
+      const buttons = e.target.parentElement;
+      const formElement = buttons.previousSibling;
+      buttons.classList.add('hidden');
+      formElement.classList.remove('hidden')
   }
 
   handleDateChange = (date) => {
@@ -292,7 +296,32 @@ export default class Transactions extends Component {
           new Date(transaction.date_time).toDateString() ===
           this.state.selectedDate.toDateString()
       );
-      console.log(dailyTransactions)
+      
+      const categories = this.state.categories.map((categoryObj) => {
+        return {
+          value: categoryObj.category,
+          label: categoryObj.category,
+        };
+      });
+
+      const accounts = this.state.accounts.map((accountObj) => {
+        return {
+          value: accountObj.accounts,
+          label: accountObj.accounts,
+        };
+      });
+
+      const types = [
+        {
+          value: 'expense',
+          label: 'Expense',
+        },
+        {
+          value: 'balance',
+          label: 'Balance',
+        },
+      ];
+
     const transactionsDisplay = dailyTransactions.length ? (
       dailyTransactions.map((transaction, i) => (
         <Fragment key={i}>
@@ -308,6 +337,7 @@ export default class Transactions extends Component {
             </span>
             <span className='account'>{transaction.accounts}</span>
           </div>
+          <EditTransaction display="hidden" categories={categories} accounts={accounts} types={types} />
           <div className='buttons hidden'>
             <button type='button' onClick={this.handleDeleteClick}>Delete</button>
             <button type='button' onClick={this.handleEditClick}>Edit</button>
@@ -321,30 +351,7 @@ export default class Transactions extends Component {
       </div>
     );
 
-    const categories = this.state.categories.map((categoryObj) => {
-      return {
-        value: categoryObj.category,
-        label: categoryObj.category,
-      };
-    });
-
-    const accounts = this.state.accounts.map((accountObj) => {
-      return {
-        value: accountObj.accounts,
-        label: accountObj.accounts,
-      };
-    });
-
-    const types = [
-      {
-        value: 'expense',
-        label: 'Expense',
-      },
-      {
-        value: 'balance',
-        label: 'Balance',
-      },
-    ];
+    
 
     return (
       <>
