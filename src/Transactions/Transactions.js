@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CreatableSelect from 'react-select/creatable';
@@ -24,13 +24,28 @@ export default class Transactions extends Component {
       time: '',
       type: '',
       error: '',
-      transactionClick: false
+      transactionClick: false,
     };
   }
 
   handleTransactionClick = (e) => {
-      console.log('Transaction clicked!')
-      console.log(e.target)
+    const buttons = e.target.parentElement.nextSibling;
+    console.log(buttons)
+    buttons.classList.remove('hidden')
+  };
+
+  handleCancelClick = (e) => {
+      console.log('Cancel clicked!')
+      const buttons = e.target.parentElement;
+      buttons.classList.add('hidden')
+  }
+
+  handleDeleteClick = (e) => {
+      console.log('Delete Clicked!')
+  }
+
+  handleEditClick = (e) => {
+      console.log('Edit Clicked!')
   }
 
   handleDateChange = (date) => {
@@ -38,7 +53,7 @@ export default class Transactions extends Component {
       selectedDate: date,
       newTransaction: '',
       newAccount: '',
-      newCategory: ''
+      newCategory: '',
     });
   };
 
@@ -104,7 +119,7 @@ export default class Transactions extends Component {
         addTransaction: !prevState.addTransaction,
         newTransaction: '',
         newAccount: '',
-        newCategory: ''
+        newCategory: '',
       };
     });
   };
@@ -115,7 +130,7 @@ export default class Transactions extends Component {
       [name]: e.target.value,
       newTransaction: '',
       newAccount: '',
-      newCategory: ''
+      newCategory: '',
     });
   };
 
@@ -195,7 +210,8 @@ export default class Transactions extends Component {
           transaction.date_time === datetime &&
           transaction.accounts === accounts &&
           transaction.category === category &&
-          transaction.amount === amount && transaction.type === type
+          transaction.amount === amount &&
+          transaction.type === type
       );
       if (duplicateTransaction) {
         this.setState({
@@ -248,13 +264,11 @@ export default class Transactions extends Component {
   }
 
   render() {
-    
-      this.state.newTransaction &&
-        this.state.transactions.push(this.state.newTransaction);
-      this.state.newCategory &&
-        this.state.categories.push(this.state.newCategory);
-      this.state.newAccount && this.state.accounts.push(this.state.newAccount);
-    
+    this.state.newTransaction &&
+      this.state.transactions.push(this.state.newTransaction);
+    this.state.newCategory &&
+      this.state.categories.push(this.state.newCategory);
+    this.state.newAccount && this.state.accounts.push(this.state.newAccount);
 
     const dailyTransactions =
       this.state.transactions &&
@@ -264,10 +278,10 @@ export default class Transactions extends Component {
           this.state.selectedDate.toDateString()
       );
     const transactionsDisplay = dailyTransactions.length ? (
-      dailyTransactions.map((transaction, i) =>
-        !this.state.transactionClick ? (
+      dailyTransactions.map((transaction, i) => (
+        <Fragment key={i}>
           <div
-            key={i}
+            
             className='display-transaction'
             onClick={this.handleTransactionClick}
           >
@@ -278,24 +292,13 @@ export default class Transactions extends Component {
             </span>
             <span className='account'>{transaction.accounts}</span>
           </div>
-        ) : (
-          <div
-            key={i}
-            className='display-transaction'
-            onClick={this.handleTransactionClick}
-          >
-            <span className='category'>{transaction.category}</span>
-            <span className='amount'>{transaction.amount}</span>
-            <span className='date'>
-              {new Date(transaction.date_time).toDateString()}
-            </span>
-            <span className='account'>{transaction.accounts}</span>
-            <button type="button">Delete</button>
-            <button type="button">Edit</button>
-            <button type="button">Cancel</button>
+          <div className='buttons hidden'>
+            <button type='button' onClick={this.handleDeleteClick}>Delete</button>
+            <button type='button' onClick={this.handleEditClick}>Edit</button>
+            <button type='button' onClick={this.handleCancelClick}>Cancel</button>
           </div>
-        )
-      )
+        </Fragment>
+      ))
     ) : (
       <div className='no-transactions'>
         There are no transactions for this day
