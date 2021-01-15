@@ -93,7 +93,7 @@ export default class Spending extends Component {
     return (
       <>
         {this.state.showStats ? (
-          <Stats handleClick={this.handleClick} />
+          <Stats balance={this.state.balance} expense={this.state.expense} handleClick={this.handleClick} />
         ) : (
           <>
             <h2>Expenditure</h2>
