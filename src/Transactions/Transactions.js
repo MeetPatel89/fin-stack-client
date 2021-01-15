@@ -41,9 +41,22 @@ export default class Transactions extends Component {
   }
 
   handleDeleteClick = (e) => {
-      console.log('Delete Clicked!')
       const transaction = e.target.parentElement.previousSibling;
       const deleteId = transaction.id
+      console.log(deleteId)
+      fetch(`http://localhost:8000/api/transactions/${deleteId}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }).then(
+          this.setState(prevState => {
+              const postDeleteTransactions = prevState.transactions.filter(transaction => transaction.id !== parseInt(deleteId))
+              return {
+                  transactions: postDeleteTransactions
+              }
+          })
+      )
   }
 
   handleEditClick = (e) => {
