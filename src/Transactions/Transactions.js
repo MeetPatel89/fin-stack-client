@@ -42,6 +42,8 @@ export default class Transactions extends Component {
 
   handleDeleteClick = (e) => {
       console.log('Delete Clicked!')
+      const transaction = e.target.parentElement.previousSibling;
+      const deleteId = transaction.id
   }
 
   handleEditClick = (e) => {
@@ -277,11 +279,12 @@ export default class Transactions extends Component {
           new Date(transaction.date_time).toDateString() ===
           this.state.selectedDate.toDateString()
       );
+      console.log(dailyTransactions)
     const transactionsDisplay = dailyTransactions.length ? (
       dailyTransactions.map((transaction, i) => (
         <Fragment key={i}>
           <div
-            
+            id={transaction.id}
             className='display-transaction'
             onClick={this.handleTransactionClick}
           >
