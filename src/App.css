@@ -23,14 +23,14 @@ a {
   align-items: center;
 }
 
-.buttons button {
+.buttons .btn {
   width: 10%;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.buttons button:hover {
+.buttons .btn:hover {
     color: white;
     background-color: #6A2E35;
     border: 1px solid white;
@@ -62,7 +62,7 @@ a {
     flex-direction: column;
 }
 
-#btns button {
+#btns .btn {
     width: 55%;
 }
 

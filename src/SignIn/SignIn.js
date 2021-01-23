@@ -102,7 +102,7 @@ export default class SignIn extends Component {
                       aria-invalid='true'
                       value={this.state.username}
                       onChange={this.handleChange}
-                      autoComplete="off"
+                      autoComplete='off'
                       required
                     />
                     <label htmlFor='username'>
@@ -133,18 +133,18 @@ export default class SignIn extends Component {
                       {this.state.passwordError}
                     </div>
                   </div>
-                  <div id="btns" className='buttons'>
-                  <button type='submit' className='log-in-button'>
-                    LogIn
-                  </button>
-                  <p>Don't have an account</p>
-                  <button
-                    type='button'
-                    className='sign-up-button'
-                    onClick={this.props.handleClick}
-                  >
-                    SignUp
-                  </button>
+                  <div id='btns' className='buttons'>
+                    <button className='btn log-in-button' type='submit'>
+                      LogIn
+                    </button>
+                    <p>Don't have an account</p>
+                    <button
+                      className='btn sign-up-button'
+                      type='button'
+                      onClick={this.props.handleClick}
+                    >
+                      SignUp
+                    </button>
                   </div>
                 </form>
               </section>

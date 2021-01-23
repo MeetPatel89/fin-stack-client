@@ -39,12 +39,18 @@ export default class App extends Component {
         ) : (
           <>
             <Header />
-            <div className='buttons'>
-              <button onClick={this.handleClick}>SignUp</button>
-              <br/>
-              <br/>
-              <button onClick={this.handleClick}>LogIn</button>
-            </div>
+            <main className='main-container'>
+              <div className='buttons'>
+                <button className='btn' onClick={this.handleClick}>
+                  SignUp
+                </button>
+                <br />
+                <br />
+                <button className='btn' onClick={this.handleClick}>
+                  LogIn
+                </button>
+              </div>
+            </main>
           </>
         )}
       </>

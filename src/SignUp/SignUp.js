@@ -219,9 +219,9 @@ export default class SignUp extends Component {
                 </div>
               </div>
               <div className="buttons" id="btns">
-              <button type='submit'>Sign Up</button>
+              <button className="btn" type='submit'>Sign Up</button>
               <p>Already have an account?</p>
-              <button type='button' onClick={this.props.handleClick}>
+              <button className="btn" type='button' onClick={this.props.handleClick}>
                 LogIn
               </button>
               </div>
