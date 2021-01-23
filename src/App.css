@@ -6,7 +6,7 @@
 
 body {
   height: 100vh;
-  background-color: #cdd1c4;
+  background-color: #BCABAE;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -34,4 +34,38 @@ a {
     color: white;
     background-color: #6A2E35;
     border: 1px solid white;
+}
+
+.sign-up-container,
+.sign-in-container {
+    position: relative;
+    width: 75%;
+    margin: auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-control {
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#btns button {
+    width: 55%;
+}
+
+h2 {
+    color: #6A2E35;
 }
