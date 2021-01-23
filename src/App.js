@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
 import Header from './Header/Header';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
+import './App.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -14,20 +14,16 @@ export default class App extends Component {
   }
 
   handleClick = (e) => {
-      (e.target.textContent === "SignUp") ?
-      this.setState(
-          {
-              signUpForm: true,
-              signInForm: false
-          }
-      ) :
-      this.setState(
-          {
-              signInForm: true,
-              signUpForm: false
-          }
-      )
-  }
+    e.target.textContent === 'SignUp'
+      ? this.setState({
+          signUpForm: true,
+          signInForm: false,
+        })
+      : this.setState({
+          signInForm: true,
+          signUpForm: false,
+        });
+  };
 
   render() {
     return (
@@ -35,11 +31,11 @@ export default class App extends Component {
         <Header />
         {this.state.signInForm ? (
           <>
-            <SignIn handleClick={this.handleClick}/>
+            <SignIn handleClick={this.handleClick} />
           </>
         ) : this.state.signUpForm ? (
           <>
-            <SignUp handleClick={this.handleClick}/>
+            <SignUp handleClick={this.handleClick} />
           </>
         ) : (
           <>
