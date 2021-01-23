@@ -1,3 +1,10 @@
+* {
+    box-sizing: border-box;
+    background-color: #CDD1C4;
+}
+
+
+
 a {
   text-decoration: none;
 }
