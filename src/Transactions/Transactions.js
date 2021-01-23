@@ -406,7 +406,7 @@ export default class Transactions extends Component {
               time={`${hour}:${minutes}`}
               handleCancelEditClick={this.handleCancelEditClick}
             />
-            <div className='buttons hidden'>
+            <div className='trx-buttons hidden'>
               <button id={transaction.id} type='button' onClick={this.handleDeleteClick}>
                 Delete
               </button>

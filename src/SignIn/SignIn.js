@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import config from '../config';
 import HomePage from '../HomePage/HomePage';
+import Header from '../Header/Header';
+import './SignIn.css';
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -34,12 +36,12 @@ export default class SignIn extends Component {
     const password = this.state.password;
     fetch(`${config.API_BASE_URL}/users/${username}`)
       .then((response) => {
-        console.log(response.ok)
+        console.log(response.ok);
         if (!response.ok) {
           this.setState({
             usernameError: 'Please enter the correct username',
             passwordError: '',
-          })
+          });
           return;
         }
         return response.json();
@@ -62,12 +64,12 @@ export default class SignIn extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           usernameError: 'Please enter the correct username',
           passwordError: '',
         });
-      })
+      });
   };
 
   render() {
@@ -81,12 +83,15 @@ export default class SignIn extends Component {
           />
         ) : (
           <>
+            <Header />
             <main className='container'>
               <section className='form-container sign-in-container'>
                 <h2>PLEASE SIGN IN</h2>
-                <form className='sign-in-form' onSubmit={this.handleSubmit}>
+                <form
+                  className='form sign-in-form'
+                  onSubmit={this.handleSubmit}
+                >
                   <div className='label-control'>
-                    <label htmlFor='username'>Username</label>
                     <input
                       type='text'
                       name='username'
@@ -97,15 +102,18 @@ export default class SignIn extends Component {
                       aria-invalid='true'
                       value={this.state.username}
                       onChange={this.handleChange}
+                      autoComplete='off'
                       required
                     />
+                    <label htmlFor='username'>
+                      <span class='content'>Username</span>
+                    </label>
                     <div className='errorMessage' id='usernameError'>
                       {this.state.usernameError}
                     </div>
                   </div>
 
                   <div className='label-control'>
-                    <label htmlFor='password'> Password</label>
                     <input
                       type='password'
                       name='password'
@@ -118,22 +126,26 @@ export default class SignIn extends Component {
                       onChange={this.handleChange}
                       required
                     />
+                    <label htmlFor='password'>
+                      <span className='content'>Password</span>{' '}
+                    </label>
                     <div className='errorMessage' id='passwordError'>
                       {this.state.passwordError}
                     </div>
                   </div>
-
-                  <button type='submit' className='log-in-button'>
-                    LogIn
-                  </button>
-                  <p>Don't have an account</p>
-                  <button
-                    type='button'
-                    className='sign-up-button'
-                    onClick={this.props.handleClick}
-                  >
-                    SignUp
-                  </button>
+                  <div id='btns' className='buttons'>
+                    <button className='btn log-in-button' type='submit'>
+                      LogIn
+                    </button>
+                    <p>Don't have an account</p>
+                    <button
+                      className='btn sign-up-button'
+                      type='button'
+                      onClick={this.props.handleClick}
+                    >
+                      SignUp
+                    </button>
+                  </div>
                 </form>
               </section>
             </main>

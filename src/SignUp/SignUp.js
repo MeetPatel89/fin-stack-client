@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import config from '../config';
+import Header from '../Header/Header';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -129,12 +130,12 @@ export default class SignUp extends Component {
   render() {
     return (
       <>
+        <Header />
         <main className='main-container'>
           <section className='form-container sign-up-container'>
             <h2>CREATE ACCOUNT</h2>
-            <form className='sign-up-form' onSubmit={this.handleSubmit}>
+            <form className='form sign-up-form' onSubmit={this.handleSubmit}>
               <div className='label-control'>
-                <label htmlFor='fullname'>Fullname</label>
                 <input
                   type='text'
                   name='fullname'
@@ -145,15 +146,17 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state.fullname}
                   onChange={this.handleChange}
-                  placeholder='Shane Watson'
+                  autoComplete="off"
                   required
                 />
+                <label htmlFor='fullname'>
+                  <span className='content'>Fullname</span>
+                </label>
                 <div className='errorMessage' id='fullnameError'>
                   {this.state.fullnameError}
                 </div>
               </div>
               <div className='label-control'>
-                <label htmlFor='username'>Username</label>
                 <input
                   type='text'
                   name='username'
@@ -164,16 +167,18 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state.username}
                   onChange={this.handleChange}
-                  placeholder='shane_wallet38'
+                  autoComplete="off"
                   required
                 />
+                <label htmlFor='username'>
+                  <span className='content'>Username</span>
+                </label>
                 <div className='errorMessage' id='usernameError'>
                   {this.state.usernameError}
                 </div>
                 <div className='errorMessage'>{this.state.usernameExists}</div>
               </div>
               <div className='label-control'>
-                <label htmlFor='password'>Password</label>
                 <input
                   type='password'
                   name='password'
@@ -184,15 +189,16 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state.password}
                   onChange={this.handleChange}
-                  placeholder='randomPassword34'
                   required
                 />
+                <label htmlFor='password'>
+                  <span className='content'>Password</span>
+                </label>
                 <div className='errorMessage' id='passwordError'>
                   {this.state.passwordError}
                 </div>
               </div>
               <div className='label-control'>
-                <label htmlFor='confirm-password'>Confirm Password</label>
                 <input
                   type='password'
                   name='confirm-password'
@@ -203,19 +209,22 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state['confirm-password']}
                   onChange={this.handleChange}
-                  placeholder='randomPassword34'
                   required
                 />
+                <label htmlFor='confirm-password'>
+                  <span className="content">Confirm Password</span>
+                </label>
                 <div className='errorMessage' id='confirmPasswordError'>
                   {this.state.confirmPasswordError}
                 </div>
               </div>
-
-              <button type='submit'>Sign Up</button>
+              <div className="buttons" id="btns">
+              <button className="btn" type='submit'>Sign Up</button>
               <p>Already have an account?</p>
-              <button type='button' onClick={this.props.handleClick}>
+              <button className="btn" type='button' onClick={this.props.handleClick}>
                 LogIn
               </button>
+              </div>
               <div className='fetchErrorMessage'>{this.state.error}</div>
               <div className='sign-up successMessage'>{this.state.signUp}</div>
             </form>

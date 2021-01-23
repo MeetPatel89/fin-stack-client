@@ -1,0 +1,70 @@
+.form-container {
+  background-color: #f7f0f5;
+  top: 20px;
+  border-radius: 10px;
+}
+
+.label-control {
+  width: 100%;
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+}
+
+input {
+  height: 40px;
+  color: #283f3b;
+  padding-top: 25px;
+  border: hidden;
+  cursor: pointer;
+  background-color: #f7f0f5;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:focus + label .content,
+input:valid + label .content {
+  transform: translateY(-100%);
+  font-size: 14px;
+  color: #5fa8d3;
+}
+
+label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid #007991;
+}
+
+label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid #5fa8d3;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+input:focus + label::after,
+input:valid + label::after {
+  transform: translateX(0%);
+}
+
+.content {
+  position: absolute;
+  bottom: 5px;
+  left: 0px;
+  transition: all 0.3s ease;
+}
+
+.form {
+  width: 50%;
+}
