@@ -28,7 +28,6 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <Header />
         {this.state.signInForm ? (
           <>
             <SignIn handleClick={this.handleClick} />
@@ -39,11 +38,14 @@ export default class App extends Component {
           </>
         ) : (
           <>
-            <button onClick={this.handleClick}>SignUp</button>
+            <Header />
+            <div className='buttons'>
+              <button onClick={this.handleClick}>SignUp</button>
 
-            <br />
-            <br />
-            <button onClick={this.handleClick}>LogIn</button>
+              <br />
+              <br />
+              <button onClick={this.handleClick}>LogIn</button>
+            </div>
           </>
         )}
       </>
