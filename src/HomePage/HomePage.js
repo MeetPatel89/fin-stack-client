@@ -15,8 +15,6 @@ export default class HomePage extends Component {
   }
 
   handleChangeKey = () => {
-    console.log('Handle Change key works')
-    console.log(this.state.key)
     this.setState(prevState => {
       return {
         key: prevState.key + 1
@@ -28,7 +26,7 @@ export default class HomePage extends Component {
     return (
       <>
         <div className='user'>{this.props.user}</div>
-        <Nav handleClick={this.props.handleClick} />
+        <Nav user={this.props.user} handleClick={this.props.handleClick} />
         <Route
           path='/accounts'
           component={() => <Accounts userId={this.props.userId} />}

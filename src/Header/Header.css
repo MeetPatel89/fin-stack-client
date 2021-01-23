@@ -1,1 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces&family=Noto+Sans+JP&display=swap" rel="stylesheet');
 
+.logo {
+  background-color: #f7f0f5;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h1 a {
+    color: #6A2E35;
+    font-family: 'Fraunces', serif;
+    font-size: 35px;
+}
