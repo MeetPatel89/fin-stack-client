@@ -93,25 +93,33 @@ export default class Spending extends Component {
     return (
       <>
         {this.state.showStats ? (
-          <Stats balance={this.state.balance} expense={this.state.expense} handleClick={this.handleClick} />
+          <Stats
+            balance={this.state.balance}
+            expense={this.state.expense}
+            handleClick={this.handleClick}
+          />
         ) : (
           <>
-            <h2>Expenditure</h2>
-            <div className='balance'>
-              <span>Balance</span>
-              <span>{this.state.totalBalance} dollars</span>
-              <br />
-              {balanceDisplay}
-            </div>
-            <div className='expense'>
-              <div className='total-expense'>
-                <span>Expense</span>
-                <span>{this.state.totalExpense} dollars</span>
+            <section>
+              <h2 className="spending">Expenditure</h2>
+              <div className='balance'>
+                <span>Balance</span>
+                <span>{this.state.totalBalance} dollars</span>
                 <br />
-                {expenseDisplay}
+                {balanceDisplay}
               </div>
-              <button type='button' onClick={this.handleClick}>Stats</button>
-            </div>
+              <div className='expense'>
+                <div className='total-expense'>
+                  <span>Expense</span>
+                  <span>{this.state.totalExpense} dollars</span>
+                  <br />
+                  {expenseDisplay}
+                </div>
+                <button type='button' onClick={this.handleClick}>
+                  Stats
+                </button>
+              </div>
+            </section>
           </>
         )}
       </>

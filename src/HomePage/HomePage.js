@@ -11,41 +11,48 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 0
-    }
+      key: 0,
+    };
   }
 
   handleChangeKey = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
-        key: prevState.key + 1
-      }
-    })
-  }
+        key: prevState.key + 1,
+      };
+    });
+  };
 
   render() {
     return (
       <>
         <Header user={this.props.user} />
         <Nav user={this.props.user} handleClick={this.props.handleClick} />
-        <Route
-          path='/accounts'
-          component={() => <Accounts userId={this.props.userId} />}
-        />
-        <Route
-          path='/categories'
-          component={() => <Categories userId={this.props.userId} />}
-        />
-        <Route
-          path='/transactions'
-          component={() => <Transactions key={this.state.key} handleChangeKey={this.handleChangeKey} userId={this.props.userId} />}
-        />
-        <Route
-          exact
-          path='/'
-          component={() => <Spending userId={this.props.userId} />}
-        />
-        
+        <main>
+          <Route
+            path='/accounts'
+            component={() => <Accounts userId={this.props.userId} />}
+          />
+          <Route
+            path='/categories'
+            component={() => <Categories userId={this.props.userId} />}
+          />
+          <Route
+            path='/transactions'
+            component={() => (
+              <Transactions
+                key={this.state.key}
+                handleChangeKey={this.handleChangeKey}
+                userId={this.props.userId}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/'
+            component={() => <Spending userId={this.props.userId} />}
+          />
+        </main>
       </>
     );
   }
