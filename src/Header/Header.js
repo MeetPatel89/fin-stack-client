@@ -9,7 +9,7 @@ export default function Header(props) {
         <h1 className='main-heading'>
           <Link to='/'>Fin Stack</Link>
         </h1>
-        <span className='user'>Welcome {props.user}!</span>
+        <span className='user'>{props.user && `Welcome ${props.user}!`}</span>
       </header>
     </>
   );

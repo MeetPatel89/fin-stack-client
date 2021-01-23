@@ -6,23 +6,34 @@ ul {
 }
 
 li {
-    display: inline-block;
+  display: inline-block;
 }
 
 li a,
 #log-out {
-    display: inline-block;
-    color: #666;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: inline-block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
 li a:hover,
 #log-out:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 #log-out:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  margin-left: 10px;
+  margin-right: 10px;
 }
