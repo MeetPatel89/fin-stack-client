@@ -8,5 +8,86 @@
 }
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+.trx {
+  background-color: #0d0630;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  justify-content: space-between;
+}
+
+.date-picker {
+  margin-top: 5px;
+}
+
+.react-datepicker__input-container > input {
+  background-color: #f7f0f5;
+  height: 40px;
+}
+
+.react-datepicker__input-container > input:hover {
+  cursor: pointer;
+}
+
+.display-transaction {
+  background-color: #f7f0f5;
+  padding: 10px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.add-trx {
+  margin-bottom: 10px;
+  height: 50px;
+  width: 90px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #1c110a;
+}
+
+.add-trx:hover {
+  cursor: pointer;
+  background-color: #50a2a7;
+  color: #f7f0f5;
+}
+
+.individual-trx {
+  margin: 10px;
+  border-bottom: 1px solid #6a2e35;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category,
+.amount {
+  font-size: 25px;
+  font-weight: 500;
+  color: #1c110a;
+}
+
+.cat-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.amt-account {
+  display: flex;
+  flex-direction: column;
+}
+
+.amount {
+  color: #9b2915;
+}
+
+.no-trx {
+  font-size: 25px;
+  font-weight: 500;
+  color: #1c110a;
 }

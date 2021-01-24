@@ -70,10 +70,10 @@ export default class Transactions extends Component {
   };
 
   handleCancelEditClick = (e) => {
-      console.log(e.target)
-      const formElement = e.target.parentElement;
-      formElement.classList.add('hidden')
-  }
+    console.log(e.target);
+    const formElement = e.target.parentElement;
+    formElement.classList.add('hidden');
+  };
 
   handleDateChange = (date) => {
     this.setState({
@@ -271,24 +271,24 @@ export default class Transactions extends Component {
   };
 
   componentWillUnmount = () => {
-      const transactions = fetch(
-        `http://localhost:8000/api/transactions/${this.props.userId}`
-      ).then((res) => res.json());
-      const categories = fetch(
-        `http://localhost:8000/api/categories/${this.props.userId}`
-      ).then((res) => res.json());
+    const transactions = fetch(
+      `http://localhost:8000/api/transactions/${this.props.userId}`
+    ).then((res) => res.json());
+    const categories = fetch(
+      `http://localhost:8000/api/categories/${this.props.userId}`
+    ).then((res) => res.json());
 
-      const accounts = fetch(
-        `http://localhost:8000/api/accounts/${this.props.userId}`
-      ).then((res) => res.json());
-      Promise.all([transactions, categories, accounts]).then((response) => {
-        this.setState({
-          transactions: response[0],
-          categories: response[1],
-          accounts: response[2],
-        });
+    const accounts = fetch(
+      `http://localhost:8000/api/accounts/${this.props.userId}`
+    ).then((res) => res.json());
+    Promise.all([transactions, categories, accounts]).then((response) => {
+      this.setState({
+        transactions: response[0],
+        categories: response[1],
+        accounts: response[2],
       });
-  }
+    });
+  };
 
   componentDidMount() {
     const transactions = fetch(
@@ -369,20 +369,25 @@ export default class Transactions extends Component {
           <Fragment key={i}>
             <div
               id={transaction.id}
-              className='display-transaction'
+              className='individual-trx'
               onClick={this.handleTransactionClick}
             >
-              <span className='category'>{transaction.category}</span>
-              <span className='amount'>{transaction.amount}</span>
-              <span className='date'>
-                {new Date(transaction.date_time).toDateString()}
-              </span>
-              <span className='account'>{transaction.accounts}</span>
+              <div className='cat-date'>
+                <span className='category'>{transaction.category}</span>
+                <span className='date'>
+                  {new Date(transaction.date_time).toDateString()}
+                </span>
+              </div>
+              <div className='amt-account'>
+                <span className='amount'>&#36;{transaction.amount}</span>
+
+                <span className='account'>{transaction.accounts}</span>
+              </div>
             </div>
             <EditTransaction
-            handleChangeKey={this.props.handleChangeKey}
-            handlePatchClick={this.handlePatchClick}
-            userId={this.props.userId}
+              handleChangeKey={this.props.handleChangeKey}
+              handlePatchClick={this.handlePatchClick}
+              userId={this.props.userId}
               id={transaction.id}
               category={{
                 label: transaction.category,
@@ -407,7 +412,11 @@ export default class Transactions extends Component {
               handleCancelEditClick={this.handleCancelEditClick}
             />
             <div className='trx-buttons hidden'>
-              <button id={transaction.id} type='button' onClick={this.handleDeleteClick}>
+              <button
+                id={transaction.id}
+                type='button'
+                onClick={this.handleDeleteClick}
+              >
                 Delete
               </button>
               <button type='button' onClick={this.handleEditClick}>
@@ -421,7 +430,7 @@ export default class Transactions extends Component {
         );
       })
     ) : (
-      <div className='no-transactions'>
+      <div className='no-trx'>
         There are no transactions for this day
       </div>
     );
@@ -485,16 +494,20 @@ export default class Transactions extends Component {
             {this.state.error}
           </form>
         ) : (
-          <div>
+          <div className='trx'>
             <div className='date-picker'>
               <DatePicker
                 selected={this.state.selectedDate}
                 onChange={(date) => this.handleDateChange(date)}
               />
             </div>
-            {transactionsDisplay}
+            <div className='display-transaction'> {transactionsDisplay}</div>
 
-            <button type='button' onClick={this.handleClick}>
+            <button
+              className='add-trx'
+              type='button'
+              onClick={this.handleClick}
+            >
               Add
             </button>
           </div>
