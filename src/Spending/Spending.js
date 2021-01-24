@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Stats from '../Stats/Stats';
+import './Spending.css';
 
 export default class Spending extends Component {
   constructor(props) {
@@ -74,21 +75,25 @@ export default class Spending extends Component {
   }
 
   render() {
-      const balanceDisplay = (this.state.balance) && this.state.balance.map((balance, i) => (
+      const balanceDisplay =
+        this.state.balance &&
+        this.state.balance.map((balance, i) => (
           <Fragment key={i}>
-            <span>{balance.category}</span>
-            <span>{balance.amount} dollars</span>
-            <br/>
+            <span className='margin'>{balance.category}</span>
+            <span className='margin'>&#36;{parseFloat(balance.amount).toFixed(2)}</span>
+            <br />
           </Fragment>
-      ))
+        ));
 
-      const expenseDisplay = (this.state.expense) && this.state.expense.map((expense, i) => (
+      const expenseDisplay =
+        this.state.expense &&
+        this.state.expense.map((expense, i) => (
           <Fragment key={i}>
-            <span>{expense.category}</span>
-            <span>{expense.amount} dollars</span>
-            <br/>
+            <span className='margin'>{expense.category}</span>
+            <span className='margin'>&#36;{parseFloat(expense.amount).toFixed(2)}</span>
+            <br />
           </Fragment>
-      ))
+        ));
 
     return (
       <>
@@ -100,25 +105,23 @@ export default class Spending extends Component {
           />
         ) : (
           <>
-            <section>
-              <h2 className="spending">Expenditure</h2>
+            <section className='expenditure'>
+              <h2 className='spending'> Expenditure </h2>
               <div className='balance'>
-                <span>Balance</span>
-                <span>{this.state.totalBalance} dollars</span>
-                <br />
-                {balanceDisplay}
+                <span className='margin'>Balance</span>
+                <span className='margin'>&#36;{parseFloat(this.state.totalBalance).toFixed(2)}</span>
               </div>
+              <div className='balance-type'>{balanceDisplay}</div>
+
               <div className='expense'>
-                <div className='total-expense'>
-                  <span>Expense</span>
-                  <span>{this.state.totalExpense} dollars</span>
-                  <br />
-                  {expenseDisplay}
-                </div>
-                <button type='button' onClick={this.handleClick}>
-                  Stats
-                </button>
+                <span className='margin'>Expense</span>
+                <span className='margin'>&#36;{parseFloat(this.state.totalExpense).toFixed(2)}</span>
               </div>
+              <div className='expense-type'>{expenseDisplay}</div>
+
+              <button type='button' onClick={this.handleClick}>
+                Stats
+              </button>
             </section>
           </>
         )}

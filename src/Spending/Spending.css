@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet');
+
+.spending {
+  margin: 0;
+  color: #f7f0f5;
+  font-family: 'Indie Flower', cursive;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.expenditure {
+  background-color: #0d0630;
+  padding: 15px;
+  margin-top: 10px;
+  color: #f7f0f5;
+  font-family: 'Indie Flower', cursive;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+
+.balance,
+.expense {
+  flex-basis: 0;
+  margin: 10px;
+  width: 50%;
+}
+
+.balance span,
+.expense span,
+.spending {
+  font-family: 'Indie Flower', cursive;
+}
+
+.margin {
+  margin: 10px;
+}
+
+.expenditure > button {
+  margin: 25px;
+  width: 90px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.expenditure button:hover {
+    background-color: #E4D6A7;
+}

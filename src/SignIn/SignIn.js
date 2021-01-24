@@ -93,6 +93,7 @@ export default class SignIn extends Component {
                 >
                   <div className='label-control'>
                     <input
+                      className='input'
                       type='text'
                       name='username'
                       id='username'
@@ -105,8 +106,8 @@ export default class SignIn extends Component {
                       autoComplete='off'
                       required
                     />
-                    <label htmlFor='username'>
-                      <span class='content'>Username</span>
+                    <label className='label' htmlFor='username'>
+                      <span className='content'>Username</span>
                     </label>
                     <div className='errorMessage' id='usernameError'>
                       {this.state.usernameError}
@@ -115,6 +116,7 @@ export default class SignIn extends Component {
 
                   <div className='label-control'>
                     <input
+                      className='input'
                       type='password'
                       name='password'
                       id='password'
@@ -126,7 +128,7 @@ export default class SignIn extends Component {
                       onChange={this.handleChange}
                       required
                     />
-                    <label htmlFor='password'>
+                    <label className='label' htmlFor='password'>
                       <span className='content'>Password</span>{' '}
                     </label>
                     <div className='errorMessage' id='passwordError'>

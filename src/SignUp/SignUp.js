@@ -137,6 +137,7 @@ export default class SignUp extends Component {
             <form className='form sign-up-form' onSubmit={this.handleSubmit}>
               <div className='label-control'>
                 <input
+                  className='input'
                   type='text'
                   name='fullname'
                   id='fullname'
@@ -146,10 +147,10 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state.fullname}
                   onChange={this.handleChange}
-                  autoComplete="off"
+                  autoComplete='off'
                   required
                 />
-                <label htmlFor='fullname'>
+                <label className='label' htmlFor='fullname'>
                   <span className='content'>Fullname</span>
                 </label>
                 <div className='errorMessage' id='fullnameError'>
@@ -158,6 +159,7 @@ export default class SignUp extends Component {
               </div>
               <div className='label-control'>
                 <input
+                  className='input'
                   type='text'
                   name='username'
                   id='username'
@@ -167,10 +169,10 @@ export default class SignUp extends Component {
                   aria-invalid='true'
                   value={this.state.username}
                   onChange={this.handleChange}
-                  autoComplete="off"
+                  autoComplete='off'
                   required
                 />
-                <label htmlFor='username'>
+                <label className='label' htmlFor='username'>
                   <span className='content'>Username</span>
                 </label>
                 <div className='errorMessage' id='usernameError'>
@@ -180,6 +182,7 @@ export default class SignUp extends Component {
               </div>
               <div className='label-control'>
                 <input
+                  className='input'
                   type='password'
                   name='password'
                   id='password'
@@ -191,7 +194,7 @@ export default class SignUp extends Component {
                   onChange={this.handleChange}
                   required
                 />
-                <label htmlFor='password'>
+                <label className='label' htmlFor='password'>
                   <span className='content'>Password</span>
                 </label>
                 <div className='errorMessage' id='passwordError'>
@@ -200,6 +203,7 @@ export default class SignUp extends Component {
               </div>
               <div className='label-control'>
                 <input
+                  className='input'
                   type='password'
                   name='confirm-password'
                   id='confirm-password'
@@ -211,19 +215,25 @@ export default class SignUp extends Component {
                   onChange={this.handleChange}
                   required
                 />
-                <label htmlFor='confirm-password'>
-                  <span className="content">Confirm Password</span>
+                <label className='label' htmlFor='confirm-password'>
+                  <span className='content'>Confirm Password</span>
                 </label>
                 <div className='errorMessage' id='confirmPasswordError'>
                   {this.state.confirmPasswordError}
                 </div>
               </div>
-              <div className="buttons" id="btns">
-              <button className="btn" type='submit'>Sign Up</button>
-              <p>Already have an account?</p>
-              <button className="btn" type='button' onClick={this.props.handleClick}>
-                LogIn
-              </button>
+              <div className='buttons' id='btns'>
+                <button className='btn' type='submit'>
+                  Sign Up
+                </button>
+                <p>Already have an account?</p>
+                <button
+                  className='btn'
+                  type='button'
+                  onClick={this.props.handleClick}
+                >
+                  LogIn
+                </button>
               </div>
               <div className='fetchErrorMessage'>{this.state.error}</div>
               <div className='sign-up successMessage'>{this.state.signUp}</div>

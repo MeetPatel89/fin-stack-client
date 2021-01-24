@@ -11,7 +11,7 @@
   overflow: hidden;
 }
 
-input {
+.input {
   height: 40px;
   color: #283f3b;
   padding-top: 25px;
@@ -20,18 +20,18 @@ input {
   background-color: #f7f0f5;
 }
 
-input:focus {
+.input:focus {
   outline: none;
 }
 
-input:focus + label .content,
-input:valid + label .content {
+.input:focus + .label .content,
+.input:valid + .label .content {
   transform: translateY(-100%);
   font-size: 14px;
   color: #5fa8d3;
 }
 
-label {
+.label {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -41,7 +41,7 @@ label {
   border-bottom: 1px solid #007991;
 }
 
-label::after {
+.label::after {
   content: '';
   position: absolute;
   left: 0;
@@ -53,8 +53,8 @@ label::after {
   transition: transform 0.3s ease;
 }
 
-input:focus + label::after,
-input:valid + label::after {
+.input:focus + .label::after,
+.input:valid + .label::after {
   transform: translateX(0%);
 }
 
