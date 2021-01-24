@@ -37,3 +37,40 @@ li {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+@media all and (max-width: 650px) {
+  li {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  li a,
+  #log-out {
+    padding: 5px;
+    font-size: 10px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 a {
+    font-size: 25px;
+  }
+
+  .user {
+    font-size: 15px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

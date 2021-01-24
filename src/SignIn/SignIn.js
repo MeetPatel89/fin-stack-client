@@ -139,7 +139,7 @@ export default class SignIn extends Component {
                     <button className='btn log-in-button' type='submit'>
                       LogIn
                     </button>
-                    <p class='to-signup'>Don't have an account</p>
+                    <p className='to-signup'>Don't have an account</p>
                     <button
                       className='btn sign-up-button'
                       type='button'
