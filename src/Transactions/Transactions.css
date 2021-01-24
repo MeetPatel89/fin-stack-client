@@ -111,7 +111,8 @@
   height: 70px;
 }
 
-.add-transaction form label {
+.add-transaction form label,
+.add-category-form label {
   color: #f7f0f5;
 }
 
@@ -169,14 +170,16 @@
 }
 
 .trx-buttons button,
-.edit-buttons button {
+.edit-buttons button,
+.add-category-btns button {
   margin: 5px;
   width: 70px;
   height: 35px;
 }
 
 .trx-buttons button:hover,
-.edit-buttons button:hover {
+.edit-buttons button:hover,
+.add-category-btns button:hover {
   cursor: pointer;
   background-color: #50a2a7;
   color: #f7f0f5;

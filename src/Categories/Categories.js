@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayCategories from '../DisplayCategories/DisplayCategories';
+import './Categories.css';
 
 export default class Categories extends Component {
   constructor(props) {
@@ -31,14 +32,14 @@ export default class Categories extends Component {
         this.setState({
           addCategory: true,
           newBalanceCat: '',
-          newExpenseCat: ''
+          newExpenseCat: '',
         });
       } else {
         console.log('Add balance');
         this.setState({
           addCategory: true,
           newBalanceCat: '',
-          newExpenseCat: ''
+          newExpenseCat: '',
         });
       }
     } else if (textContent === 'Expense') {
@@ -62,59 +63,63 @@ export default class Categories extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.displayExpense) {
-        const duplicateCat = this.state.expenseCat.find(category => category === this.state.value)
-        if (duplicateCat) {
+      const duplicateCat = this.state.expenseCat.find(
+        (category) => category === this.state.value
+      );
+      if (duplicateCat) {
+        this.setState({
+          error: 'The given expense category already exists',
+        });
+      } else {
+        const newCategory = {
+          category: this.state.value,
+          type: 'expense',
+        };
+        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newCategory),
+        })
+          .then((res) => res.json())
+          .then((categoryObj) => {
             this.setState({
-                error: 'The given expense category already exists'
-            })
-        } else {
-            const newCategory = {
-                category: this.state.value,
-                type: 'expense'
-            }
-            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newCategory)
-            })
-            .then(res => res.json())
-            .then(categoryObj => {
-                this.setState({
-                    addCategory: false,
-                    newExpenseCat: categoryObj[0].category,
-                    value: ''
-                })
-            })
-        }
+              addCategory: false,
+              newExpenseCat: categoryObj[0].category,
+              value: '',
+            });
+          });
+      }
     } else {
-        const duplicateCat = this.state.balanceCat.find(category => category === this.state.value)
-        if (duplicateCat) {
+      const duplicateCat = this.state.balanceCat.find(
+        (category) => category === this.state.value
+      );
+      if (duplicateCat) {
+        this.setState({
+          error: 'The given balance category already exists',
+        });
+      } else {
+        const newCategory = {
+          category: this.state.value,
+          type: 'balance',
+        };
+        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newCategory),
+        })
+          .then((res) => res.json())
+          .then((categoryObj) => {
             this.setState({
-                error: 'The given balance category already exists'
-            })
-        } else {
-            const newCategory = {
-              category: this.state.value,
-              type: 'balance',
-            };
-            fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(newCategory),
-            })
-            .then(res => res.json())
-            .then(categoryObj => {
-                this.setState({
-                    addCategory: false,
-                    newBalanceCat: categoryObj[0].category,
-                    value: ''
-                })
-            })
-        }
+              addCategory: false,
+              newBalanceCat: categoryObj[0].category,
+              value: '',
+            });
+          });
+      }
     }
   };
 
@@ -141,13 +146,16 @@ export default class Categories extends Component {
 
   render() {
     return (
-      <>
-        <button type='button' onClick={this.handleClick}>
-          Expense
-        </button>
-        <button type='button' onClick={this.handleClick}>
-          Balance
-        </button>
+      <div className='cats'>
+        <div className='cats-btns'>
+          <button type='button' onClick={this.handleClick}>
+            Expense
+          </button>
+          <button type='button' onClick={this.handleClick}>
+            Balance
+          </button>
+        </div>
+
         {this.state.displayExpense && (
           <>
             <DisplayCategories
@@ -174,27 +182,31 @@ export default class Categories extends Component {
         )}
         {this.state.addCategory && (
           <>
-            <form onSubmit={this.handleSubmit}>
-              <label htmlFor='category'>Category:</label>
-              <input
-                placeholder='e.g. Food or Salary'
-                type='text'
-                id='category'
-                value={this.state.value}
-                onChange={this.handleChange}
-                required
-              />
-              <button className='category-submit' type='submit'>
-                Submit
-              </button>
-              <button className='cancel' onClick={this.handleClick}>
-                Cancel
-              </button>
-              {this.state.error}
+            <form className='add-category-form' onSubmit={this.handleSubmit}>
+              <div className='label-ctl'>
+                <label htmlFor='category'>Category:</label>
+                <input
+                  placeholder='e.g. Food or Salary'
+                  type='text'
+                  id='category'
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className='add-category-btns'>
+                <button className='category-submit' type='submit'>
+                  Submit
+                </button>
+                <button className='cancel' onClick={this.handleClick}>
+                  Cancel
+                </button>
+              </div>
+              <div className='err'>{this.state.error}</div>
             </form>
           </>
         )}
-      </>
+      </div>
     );
   }
 }

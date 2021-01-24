@@ -34,9 +34,6 @@ export default class Transactions extends Component {
     const buttons = e.target.nextSibling.nextSibling;
 
     transaction.classList.remove('border-bottom');
-    /*
-    buttons.classList.remove('hidden');
-    */
     buttons.classList.add('flex-row');
   };
 
