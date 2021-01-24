@@ -2,11 +2,6 @@
   margin: 10px;
 }
 
-.display-transaction:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
 .hidden {
   display: none;
 }
@@ -33,7 +28,6 @@
 
 .react-datepicker__input-container > input:hover {
   cursor: pointer;
-  
 }
 
 .display-transaction {
@@ -62,9 +56,14 @@
 
 .individual-trx {
   margin: 10px;
-  border-bottom: 1px solid #6a2e35;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+}
+
+.individual-trx:hover {
+  background-color: #bfd7ea;
+  cursor: pointer;
 }
 
 .category,
@@ -157,4 +156,26 @@
 .err {
   color: #f7f0f5;
   margin: 10px;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #6a2e35;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trx-buttons button {
+  margin: 5px;
+  width: 70px;
+  height: 35px;
+}
+
+.trx-buttons button:hover {
+  cursor: pointer;
+  background-color: #50a2a7;
+  color: #f7f0f5;
 }

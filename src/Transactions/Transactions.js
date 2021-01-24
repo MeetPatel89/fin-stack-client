@@ -30,15 +30,24 @@ export default class Transactions extends Component {
   }
 
   handleTransactionClick = (e) => {
-    const buttons = e.target.parentElement.nextSibling.nextSibling;
-    console.log(buttons);
+    const transaction = e.target;
+    const buttons = e.target.nextSibling.nextSibling;
+
+    transaction.classList.remove('border-bottom');
+    /*
     buttons.classList.remove('hidden');
+    */
+    buttons.classList.add('flex-row');
   };
 
   handleCancelClick = (e) => {
-    console.log('Cancel clicked!');
+    const transaction = e.target.parentElement.previousSibling.previousSibling;
     const buttons = e.target.parentElement;
+    /*
     buttons.classList.add('hidden');
+    */
+    buttons.classList.remove('flex-row');
+    transaction.classList.add('border-bottom');
   };
 
   handleDeleteClick = (e) => {
@@ -147,7 +156,7 @@ export default class Transactions extends Component {
         newTransaction: '',
         newAccount: '',
         newCategory: '',
-        error: ''
+        error: '',
       };
     });
   };
@@ -372,7 +381,7 @@ export default class Transactions extends Component {
           <Fragment key={i}>
             <div
               id={transaction.id}
-              className='individual-trx'
+              className='individual-trx border-bottom'
               onClick={this.handleTransactionClick}
             >
               <div className='cat-date'>
