@@ -6,8 +6,12 @@
 
 body {
   height: 100vh;
-  background-color: #BCABAE;
+  background-color: #bcabae;
   font-family: 'Noto Sans JP', sans-serif;
+}
+
+#root {
+  height: 100%;
 }
 
 a {
@@ -28,45 +32,62 @@ a {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
 }
 
 .buttons .btn:hover {
-    color: white;
-    background-color: #6A2E35;
-    border: 1px solid white;
+  color: white;
+  background-color: #6a2e35;
+  border: 1px solid white;
 }
 
 .sign-up-container,
 .sign-in-container {
-    position: relative;
-    width: 75%;
-    margin: auto;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  width: 75%;
+  margin: auto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .label-control {
-    margin: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 #btns .btn {
-    width: 55%;
+  width: 55%;
 }
 
 h2 {
-    color: #6A2E35;
+  color: #6a2e35;
 }
 
+button {
+  min-width: 80px;
+}
+
+footer {
+  position: absolute;
+  bottom: 5px;
+   right: 5px;
+   left: 5px;
+  background-color: #f7f0f5;
+  height: 50px;
+  padding: 1px;
+  text-align: center;
+  
+  color: #6a2e35;
+}

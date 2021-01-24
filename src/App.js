@@ -44,13 +44,15 @@ export default class App extends Component {
                 <button className='btn' onClick={this.handleClick}>
                   SignUp
                 </button>
-                <br />
-                <br />
+                
                 <button className='btn' onClick={this.handleClick}>
                   LogIn
                 </button>
               </div>
             </main>
+            <footer>
+              <p>&#169;Meet 2021</p>
+            </footer>
           </>
         )}
       </>
