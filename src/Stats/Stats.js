@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs-2';
+import './Stats.css';
 
 export default class Stats extends Component {
   constructor(props) {
@@ -37,13 +38,16 @@ export default class Stats extends Component {
     const balanceColors = this.props.balance.map((balance) => getRandomColor());
     const expenseColors = this.props.expense.map((expense) => getRandomColor());
     return (
-      <>
-        <button type='button' onClick={this.handleClick}>
-          Expense
-        </button>
-        <button type='button' onClick={this.handleClick}>
-          Balance
-        </button>
+      <div className='stats'>
+        <div className='stats-btns'>
+          <button type='button' onClick={this.handleClick}>
+            Expense
+          </button>
+          <button type='button' onClick={this.handleClick}>
+            Balance
+          </button>
+        </div>
+
         {this.state.showExpense ? (
           <Pie
             data={{
@@ -59,21 +63,21 @@ export default class Stats extends Component {
             options={{
               legend: {
                 labels: {
-                  fontColor: 'black',
+                  fontColor: '#f7f0f5',
                   fontSize: 18,
                 },
               },
               tooltips: {
-                titleFontColor: 'black',
+                titleFontColor: '#f7f0f5',
                 titleFontSize: 15,
-                bodyFontSize: 15
+                bodyFontSize: 15,
               },
               title: {
-                  display: true,
-                  text: 'Expense in US Dollars',
-                  fontColor: 'black',
-                  fontSize: 20
-              }
+                display: true,
+                text: 'Expense in US Dollars',
+                fontColor: '#f7f0f5',
+                fontSize: 20,
+              },
             }}
           />
         ) : (
@@ -91,28 +95,28 @@ export default class Stats extends Component {
             options={{
               legend: {
                 labels: {
-                  fontColor: 'black',
+                  fontColor: '#f7f0f5',
                   fontSize: 18,
                 },
               },
               tooltips: {
                 titleFontColor: 'black',
                 titleFontSize: 15,
-                bodyFontSize: 15
+                bodyFontSize: 15,
               },
               title: {
-                  display: true,
-                  text: 'Balance in US Dollars',
-                  fontColor: 'black',
-                  fontSize: 20
-              }
+                display: true,
+                text: 'Balance in US Dollars',
+                fontColor: '#f7f0f5',
+                fontSize: 20,
+              },
             }}
           />
         )}
         <button type='button' onClick={this.props.handleClick}>
           Back
         </button>
-      </>
+      </div>
     );
   }
 }
