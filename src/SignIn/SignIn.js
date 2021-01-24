@@ -139,7 +139,7 @@ export default class SignIn extends Component {
                     <button className='btn log-in-button' type='submit'>
                       LogIn
                     </button>
-                    <p>Don't have an account</p>
+                    <p class='to-signup'>Don't have an account</p>
                     <button
                       className='btn sign-up-button'
                       type='button'
@@ -151,6 +151,9 @@ export default class SignIn extends Component {
                 </form>
               </section>
             </main>
+            <footer>
+              <p>&#169;Meet 2021</p>
+            </footer>
           </>
         )}
       </>

@@ -51,6 +51,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 720px;
 }
 
 .form {
@@ -82,12 +83,46 @@ button {
 footer {
   position: absolute;
   bottom: 5px;
-   right: 5px;
-   left: 5px;
+  right: 5px;
+  left: 5px;
   background-color: #f7f0f5;
   height: 50px;
   padding: 1px;
   text-align: center;
-  
+
   color: #6a2e35;
+}
+
+.to-signup,
+.to-signin {
+  color: #6a2e35; 
+}
+
+@media all and (max-width: 650px) {
+  .sign-up-container,
+  .sign-in-container {
+    width: 90%;
+  }
+
+  .buttons .btn {
+    margin: 2px;
+    padding: 5px;
+    font-size: 10px;
+  }
+
+}
+
+@media all and (max-width: 450px) {
+  .sign-up-container,
+  .sign-in-container {
+    width: 95%;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .form {
+    width: 95%;
+  }
 }

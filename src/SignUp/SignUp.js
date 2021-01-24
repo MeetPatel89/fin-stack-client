@@ -226,7 +226,7 @@ export default class SignUp extends Component {
                 <button className='btn' type='submit'>
                   Sign Up
                 </button>
-                <p>Already have an account?</p>
+                <p className='to-signin'>Already have an account?</p>
                 <button
                   className='btn'
                   type='button'
@@ -240,6 +240,9 @@ export default class SignUp extends Component {
             </form>
           </section>
         </main>
+        <footer>
+          <p>&#169;Meet 2021</p>
+        </footer>
       </>
     );
   }
