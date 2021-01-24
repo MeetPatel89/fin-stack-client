@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50vh;
   justify-content: space-between;
 }
 
@@ -28,10 +27,13 @@
 .react-datepicker__input-container > input {
   background-color: #f7f0f5;
   height: 40px;
+  font-size: 20px;
+  text-align: center;
 }
 
 .react-datepicker__input-container > input:hover {
   cursor: pointer;
+  
 }
 
 .display-transaction {
@@ -90,4 +92,69 @@
   font-size: 25px;
   font-weight: 500;
   color: #1c110a;
+  text-align: center;
+}
+
+.add-transaction {
+  background-color: #0d0630;
+}
+
+.add-transaction > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-ctl {
+  width: 50%;
+  margin: 10px;
+  height: 70px;
+}
+
+.add-transaction form label {
+  color: #f7f0f5;
+}
+
+.css-2b097c-container {
+  margin-top: 5px;
+  height: 60%;
+}
+
+.label-ctl input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  height: 60%;
+}
+
+.label-ctl > input:focus {
+  outline: none;
+  border: 3px solid #3a7ca5;
+}
+
+.add-transaction > h2 {
+  text-align: center;
+  color: #f7f0f5;
+  margin: 10px;
+  padding-top: 5px;
+  font-size: 25px;
+}
+
+.add-transaction button {
+  margin: 10px;
+  width: 90px;
+  height: 40px;
+}
+
+.add-transaction button:hover {
+  cursor: pointer;
+  background-color: #50a2a7;
+  color: #f7f0f5;
+  letter-spacing: 1px;
+}
+
+.err {
+  color: #f7f0f5;
+  margin: 10px;
 }

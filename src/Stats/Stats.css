@@ -16,5 +16,8 @@
 
 .stats > button:hover,
 .stats-btns > button:hover {
-  background-color: #e4d6a7;
+  background-color: #50a2a7;
+  color: #f7f0f5;
+  font-weight: 500;
+  letter-spacing: 1px;
 }

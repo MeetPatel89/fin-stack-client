@@ -147,6 +147,7 @@ export default class Transactions extends Component {
         newTransaction: '',
         newAccount: '',
         newCategory: '',
+        error: ''
       };
     });
   };
@@ -270,6 +271,7 @@ export default class Transactions extends Component {
     }
   };
 
+  /*
   componentWillUnmount = () => {
     const transactions = fetch(
       `http://localhost:8000/api/transactions/${this.props.userId}`
@@ -289,6 +291,7 @@ export default class Transactions extends Component {
       });
     });
   };
+  */
 
   componentDidMount() {
     const transactions = fetch(
@@ -430,69 +433,80 @@ export default class Transactions extends Component {
         );
       })
     ) : (
-      <div className='no-trx'>
-        There are no transactions for this day
-      </div>
+      <div className='no-trx'>There are no transactions for this day</div>
     );
 
     return (
       <>
         {this.state.addTransaction ? (
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor='categories'>Category:</label>
-            <CreatableSelect
-              isClearable
-              id='categories'
-              rules={{ required: 'Please select an option' }}
-              onChange={this.handleCategoryChange}
-              options={categories}
-            />
-            <label htmlFor='accounts'>Account:</label>
-            <CreatableSelect
-              isClearable
-              id='accounts'
-              onChange={this.handleAccountChange}
-              options={accounts}
-            />
-            <label htmlFor='type'>Type:</label>
-            <Select
-              id='type'
-              onChange={this.handleTypeChange}
-              options={types}
-            />
-            <label>
-              Amount(in dollars):
-              <input
-                type='text'
-                name='amount'
-                value={this.state.amount}
-                onChange={this.handleChange}
-              />
-            </label>
-            <label>
-              Date:
-              <input
-                type='date'
-                name='date'
-                value={this.state.date}
-                onChange={this.handleChange}
-              />
-            </label>
-            <label>
-              Time:
-              <input
-                type='time'
-                name='time'
-                value={this.state.time}
-                onChange={this.handleChange}
-              />
-            </label>
-            <button type='submit'>Submit</button>
-            <button type='button' onClick={this.handleClick}>
-              Cancel
-            </button>
-            {this.state.error}
-          </form>
+          <section className='add-transaction'>
+            <h2>Add Transaction</h2>
+            <form onSubmit={this.handleSubmit}>
+              <div className='label-ctl'>
+                <label htmlFor='categories'>Category:</label>
+                <CreatableSelect
+                  isClearable
+                  id='categories'
+                  rules={{ required: 'Please select an option' }}
+                  onChange={this.handleCategoryChange}
+                  options={categories}
+                />
+              </div>
+              <div className='label-ctl'>
+                <label htmlFor='accounts'>Account:</label>
+                <CreatableSelect
+                  isClearable
+                  id='accounts'
+                  onChange={this.handleAccountChange}
+                  options={accounts}
+                />
+              </div>
+              <div className='label-ctl'>
+                <label htmlFor='type'>Type:</label>
+                <Select
+                  id='type'
+                  onChange={this.handleTypeChange}
+                  options={types}
+                />
+              </div>
+              <div className='label-ctl'>
+                <label htmlFor='amount'>Amount(in dollars):</label>
+                <input
+                  type='text'
+                  name='amount'
+                  id='amount'
+                  value={this.state.amount}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className='label-ctl'>
+                <label htmlFor='date'>Date:</label>
+                <input
+                  type='date'
+                  name='date'
+                  id='date'
+                  value={this.state.date}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className='label-ctl'>
+                <label htmlFor='time'>Time: </label>
+                <input
+                  type='time'
+                  name='time'
+                  id='time'
+                  value={this.state.time}
+                  onChange={this.handleChange}
+                />
+              </div>
+
+              <button type='submit'>Submit</button>
+              <button type='button' onClick={this.handleClick}>
+                Cancel
+              </button>
+              <div className='err'>{this.state.error}</div>
+            </form>
+          </section>
         ) : (
           <div className='trx'>
             <div className='date-picker'>
