@@ -53,6 +53,9 @@ export default class HomePage extends Component {
             component={() => <Spending userId={this.props.userId} />}
           />
         </main>
+        <footer>
+          <p>&#169;Meet 2021</p>
+        </footer>
       </>
     );
   }

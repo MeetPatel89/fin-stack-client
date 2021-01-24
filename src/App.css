@@ -95,7 +95,7 @@ footer {
 
 .to-signup,
 .to-signin {
-  color: #6a2e35; 
+  color: #6a2e35;
 }
 
 @media all and (max-width: 650px) {
@@ -110,6 +110,18 @@ footer {
     font-size: 10px;
   }
 
+  .spending {
+    font-size: 25px;
+  }
+
+  .margin {
+    margin: 5px;
+    font-size: 15px;
+  }
+
+  .stats-btns > button {
+    width: 60px;
+  }
 }
 
 @media all and (max-width: 450px) {
@@ -124,5 +136,9 @@ footer {
 
   .form {
     width: 95%;
+  }
+
+  .spending {
+    font-size: 15px;
   }
 }

@@ -7,6 +7,7 @@ export default class Stats extends Component {
     super(props);
     this.state = {
       showExpense: true,
+      canvas: '',
     };
   }
 
@@ -22,7 +23,24 @@ export default class Stats extends Component {
     }
   };
 
+  componentDidMount() {
+    const canvas = document.getElementsByTagName('canvas');
+    this.setState({
+      canvas,
+    });
+  }
+
   render() {
+    if (this.state.canvas) {
+      this.state.canvas[0].style.minHeight = '300px';
+      this.state.canvas[0].style.minWidth = '480px';
+      this.state.canvas[0].style.maxHeight = '600px';
+      this.state.canvas[0].style.maxWidth = '1000px'
+      this.state.canvas[0].style.display = 'flex';
+      this.state.canvas[0].style.flexDirection = 'column';
+      this.state.canvas[0].style.alignItems = 'center';
+    }
+    console.log(this.state.canvas[0]);
     const balanceLabels = this.props.balance.map((balance) => balance.category);
     const balanceData = this.props.balance.map((balance) => balance.amount);
     const expenseLabels = this.props.expense.map((expense) => expense.category);
@@ -61,10 +79,15 @@ export default class Stats extends Component {
               ],
             }}
             options={{
+              responsive: true,
               legend: {
+                padding: 0,
+                boxWidth: 10,
+                position: 'bottom',
                 labels: {
                   fontColor: '#f7f0f5',
-                  fontSize: 18,
+                  fontSize: 13,
+                  usePointStyle: true,
                 },
               },
               tooltips: {
@@ -76,7 +99,7 @@ export default class Stats extends Component {
                 display: true,
                 text: 'Expense in US Dollars',
                 fontColor: '#f7f0f5',
-                fontSize: 20,
+                fontSize: 15,
               },
             }}
           />
@@ -94,9 +117,13 @@ export default class Stats extends Component {
             }}
             options={{
               legend: {
+                position: 'bottom',
+                padding: 0,
                 labels: {
                   fontColor: '#f7f0f5',
-                  fontSize: 18,
+                  fontSize: 13,
+                  usePointStyle: true,
+                  fullWidth: true,
                 },
               },
               tooltips: {
@@ -108,7 +135,7 @@ export default class Stats extends Component {
                 display: true,
                 text: 'Balance in US Dollars',
                 fontColor: '#f7f0f5',
-                fontSize: 20,
+                fontSize: 15,
               },
             }}
           />
