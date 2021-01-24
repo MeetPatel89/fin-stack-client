@@ -112,7 +112,8 @@
 }
 
 .add-transaction form label,
-.add-category-form label {
+.add-category-form label,
+.dis-accounts form label {
   color: #f7f0f5;
 }
 

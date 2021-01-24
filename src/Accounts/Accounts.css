@@ -1,0 +1,18 @@
+.dis-accounts {
+  background-color: #0d0630;
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display-accounts .accounts {
+  color: #f7f0f5;
+  margin: 5px;
+  font-size: 20px;
+}
+
+.dis-accounts button {
+  width: 140px !important;
+}

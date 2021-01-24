@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayAccounts from '../DisplayAccounts/DisplayAccounts';
+import './Accounts.css';
 
 export default class Accounts extends Component {
   constructor(props) {
@@ -80,10 +81,19 @@ export default class Accounts extends Component {
 
   render() {
     return (
-      <>
-        {this.state.addAccount ? (
-          <>
-            <form onSubmit={this.handleSubmit}>
+      <div className='dis-accounts'>
+        <DisplayAccounts
+          userId={this.props.userId}
+          newAccount={this.state.newAccount}
+          accounts={this.state.accounts}
+        />
+        <button type='button' onClick={this.handleClick}>
+          Add Account
+        </button>
+
+        {this.state.addAccount && (
+          <form onSubmit={this.handleSubmit}>
+            <div className='label-ctl'>
               <label htmlFor='account'>Name:</label>
               <input
                 placeholder='discover bank'
@@ -93,28 +103,18 @@ export default class Accounts extends Component {
                 onChange={this.handleChange}
                 required
               />
-              <button className='account-submit' type='submit'>
-                Submit
-              </button>
-              <button className='cancel' onClick={this.handleClick}>
-                Cancel
-              </button>
-              {this.state.error}
-            </form>
-          </>
-        ) : (
-          <>
-            <DisplayAccounts
-              userId={this.props.userId}
-              newAccount={this.state.newAccount}
-              accounts={this.state.accounts}
-            />
-            <button type='button' onClick={this.handleClick}>
-              Add Account
+            </div>
+
+            <button className='account-submit' type='submit'>
+              Submit
             </button>
-          </>
+            <button className='cancel' onClick={this.handleClick}>
+              Cancel
+            </button>
+            {this.state.error}
+          </form>
         )}
-      </>
+      </div>
     );
   }
 }
