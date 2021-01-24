@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
+import './EditTransaction.css';
 
 export default class EditTransaction extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class EditTransaction extends Component {
       amount: this.props.amount,
       date: this.props.date,
       time: this.props.time,
+      error: ''
     };
   }
 
@@ -92,134 +94,160 @@ export default class EditTransaction extends Component {
     e.preventDefault();
     let updatedTransaction = {};
     let postCategory, postAccount;
-    if (this.state.category.value !== this.props.category.value) {
-      Object.assign(updatedTransaction, {
-        category: this.state.category.value,
-      });
-      if (this.state.category.isNew) {
-        const newCategory = {
+    if (this.props.account.value !== this.state.account.value || this.props.amount !== this.state.amount || this.props.category.value !== this.state.category.value || this.props.date !== this.state.date || this.props.time !== this.state.time || this.props.type.value !== this.state.type.value) {
+      if (this.state.category.value !== this.props.category.value) {
+        Object.assign(updatedTransaction, {
           category: this.state.category.value,
-          type: this.state.type.value,
-        };
-        postCategory = fetch(
-          `http://localhost:8000/api/categories/${this.props.userId}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newCategory),
-          }
-        );
+        });
+        if (this.state.category.isNew) {
+          const newCategory = {
+            category: this.state.category.value,
+            type: this.state.type.value,
+          };
+          postCategory = fetch(
+            `http://localhost:8000/api/categories/${this.props.userId}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newCategory),
+            }
+          );
+        }
       }
-    }
-    if (this.state.account.value !== this.props.account.value) {
-      Object.assign(updatedTransaction, { accounts: this.state.account.value });
-      if (this.state.account.isNew) {
-        const newAccount = {
+      if (this.state.account.value !== this.props.account.value) {
+        Object.assign(updatedTransaction, {
           accounts: this.state.account.value,
-        };
-        postAccount = fetch(
-          `http://localhost:8000/api/accounts/${this.props.userId}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newAccount),
-          }
-        );
+        });
+        if (this.state.account.isNew) {
+          const newAccount = {
+            accounts: this.state.account.value,
+          };
+          postAccount = fetch(
+            `http://localhost:8000/api/accounts/${this.props.userId}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newAccount),
+            }
+          );
+        }
       }
-    }
-    if (this.state.type.value !== this.props.type.value) {
-      Object.assign(updatedTransaction, { type: this.state.type.value });
-    }
-    if (this.state.amount !== this.props.amount) {
-      Object.assign(updatedTransaction, { amount: this.state.amount });
-    }
-    if (
-      this.state.date !== this.props.date ||
-      this.state.time !== this.props.time
-    ) {
-      Object.assign(updatedTransaction, {
-        date_time: new Date(
-          `${this.state.date}T${this.state.time}`
-        ).toISOString(),
+      if (this.state.type.value !== this.props.type.value) {
+        Object.assign(updatedTransaction, { type: this.state.type.value });
+      }
+      if (this.state.amount !== this.props.amount) {
+        Object.assign(updatedTransaction, { amount: this.state.amount });
+      }
+      if (
+        this.state.date !== this.props.date ||
+        this.state.time !== this.props.time
+      ) {
+        Object.assign(updatedTransaction, {
+          date_time: new Date(
+            `${this.state.date}T${this.state.time}`
+          ).toISOString(),
+        });
+      }
+      console.log(updatedTransaction);
+      const postTransaction = fetch(
+        `http://localhost:8000/api/transactions/${this.props.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(updatedTransaction),
+        }
+      );
+      Promise.all([postCategory, postAccount, postTransaction]).then(() => {
+        this.props.handleChangeKey();
       });
+    } else {
+      this.setState({
+        error: 'Edit at least one field to submit'
+      })
     }
-    console.log(updatedTransaction);
-    const postTransaction = fetch(
-      `http://localhost:8000/api/transactions/${this.props.id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(updatedTransaction),
-      }
-    );
-    Promise.all([postCategory, postAccount, postTransaction]).then( () => {
-    this.props.handleChangeKey();})
+    
   };
 
   render() {
     return (
-      <form className={this.props.display} onSubmit={this.handleSubmit}>
-        <label htmlFor='categories'>Category:</label>
-        <CreatableSelect
-          isClearable
-          id='categories'
-          onChange={this.handleCategoryChange}
-          options={this.props.categories}
-          value={this.state.category}
-        />
-        <label htmlFor='accounts'>Account:</label>
-        <CreatableSelect
-          isClearable
-          id='accounts'
-          onChange={this.handleAccountChange}
-          options={this.props.accounts}
-          value={this.state.account}
-        />
-        <label htmlFor='type'>Type:</label>
-        <Select
-          id='type'
-          onChange={this.handleTypeChange}
-          options={this.props.types}
-          value={this.state.type}
-        />
-        <label>
-          Amount(in dollars):
+      <form
+        className={`trx-form ${this.props.display}`}
+        onSubmit={this.handleSubmit}
+      >
+        <div className='label-ctl'>
+          <label htmlFor='categories'>Category:</label>
+          <CreatableSelect
+            isClearable
+            id='categories'
+            onChange={this.handleCategoryChange}
+            options={this.props.categories}
+            value={this.state.category}
+          />
+        </div>
+        <div className='label-ctl'>
+          <label htmlFor='accounts'>Account:</label>
+          <CreatableSelect
+            isClearable
+            id='accounts'
+            onChange={this.handleAccountChange}
+            options={this.props.accounts}
+            value={this.state.account}
+          />
+        </div>
+        <div className='label-ctl'>
+          <label htmlFor='type'>Type:</label>
+          <Select
+            id='type'
+            onChange={this.handleTypeChange}
+            options={this.props.types}
+            value={this.state.type}
+          />
+        </div>
+        <div className='label-ctl'>
+          <label htmlFor={`amount-${this.props.identifier}`}>
+            Amount(in dollars):
+          </label>
           <input
             type='text'
             name='amount'
+            id={`amount-${this.props.identifier}`}
             value={this.state.amount}
             onChange={this.handleChange}
           />
-        </label>
-        <label>
-          Date:
+        </div>
+        <div className='label-ctl'>
+          <label htmlFor={`date-${this.props.identifier}`}>Date:</label>
           <input
             type='date'
             name='date'
+            id={`date-${this.props.identifier}`}
             value={this.state.date}
             onChange={this.handleChange}
           />
-        </label>
-        <label>
-          Time:
+        </div>
+        <div className='label-ctl'>
+          <label htmlFor={`time-${this.props.identifier}`}>Time:</label>
           <input
             type='time'
             name='time'
+            id={`time-${this.props.identifier}`}
             value={this.state.time}
             onChange={this.handleChange}
           />
-        </label>
-        <button type='submit'>Submit</button>
-        <button type='button' onClick={this.props.handleCancelEditClick}>
-          Cancel
-        </button>
-        {this.state.error}
+        </div>
+        <div className='edit-buttons'>
+          <button type='submit'>Submit</button>
+          <button type='button' onClick={this.props.handleCancelEditClick}>
+            Cancel
+          </button>
+        </div>
+        <div className='err'>{this.state.error}</div>
       </form>
     );
   }

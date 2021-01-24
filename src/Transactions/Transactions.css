@@ -168,14 +168,25 @@
   align-items: center;
 }
 
-.trx-buttons button {
+.trx-buttons button,
+.edit-buttons button {
   margin: 5px;
   width: 70px;
   height: 35px;
 }
 
-.trx-buttons button:hover {
+.trx-buttons button:hover,
+.edit-buttons button:hover {
   cursor: pointer;
   background-color: #50a2a7;
   color: #f7f0f5;
 }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d0630;
+}
+

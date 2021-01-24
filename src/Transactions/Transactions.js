@@ -72,16 +72,19 @@ export default class Transactions extends Component {
   };
 
   handleEditClick = (e) => {
+    console.log('Edit clicked');
     const buttons = e.target.parentElement;
     const formElement = buttons.previousSibling;
-    buttons.classList.add('hidden');
-    formElement.classList.remove('hidden');
+    buttons.classList.remove('flex-row');
+    formElement.classList.add('flex-col');
   };
 
   handleCancelEditClick = (e) => {
     console.log(e.target);
-    const formElement = e.target.parentElement;
-    formElement.classList.add('hidden');
+    const formElement = e.target.parentElement.parentElement;
+    const transaction = formElement.previousSibling;
+    formElement.classList.remove('flex-col');
+    transaction.classList.add('border-bottom');
   };
 
   handleDateChange = (date) => {
@@ -397,6 +400,7 @@ export default class Transactions extends Component {
               </div>
             </div>
             <EditTransaction
+              identifier={i}
               handleChangeKey={this.props.handleChangeKey}
               handlePatchClick={this.handlePatchClick}
               userId={this.props.userId}
