@@ -92,7 +92,7 @@ export default class Accounts extends Component {
         </button>
 
         {this.state.addAccount && (
-          <form onSubmit={this.handleSubmit}>
+          <form className="add-account" onSubmit={this.handleSubmit}>
             <div className='label-ctl'>
               <label htmlFor='account'>Name:</label>
               <input

@@ -186,7 +186,7 @@ export default class Categories extends Component {
               <div className='label-ctl'>
                 <label htmlFor='category'>Category:</label>
                 <input
-                  placeholder='e.g. Food or Salary'
+                  placeholder='e.g. Food'
                   type='text'
                   id='category'
                   value={this.state.value}

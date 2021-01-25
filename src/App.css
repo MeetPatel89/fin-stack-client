@@ -89,7 +89,7 @@ footer {
   height: 50px;
   padding: 1px;
   text-align: center;
-  display: none;
+  z-index: -1;
   color: #6a2e35;
 }
 
@@ -101,6 +101,19 @@ footer {
 .trx-form > .label-ctl {
   margin: 3px;
   width: 80%;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.landing {
+  background-color: #f7f0f5;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media all and (max-width: 650px) {
@@ -149,7 +162,6 @@ footer {
     width: 80%;
     margin: 5px;
   }
-
 }
 
 @media all and (max-width: 450px) {
@@ -174,7 +186,9 @@ footer {
     width: 95%;
   }
 
-  .trx-form > .label-ctl {
+  .trx-form > .label-ctl,
+  .add-account > .label-ctl,
+  .add-category-form > .label-ctl {
     width: 95%;
     margin: 2px;
   }

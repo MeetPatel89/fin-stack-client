@@ -81,6 +81,7 @@ export default class Stats extends Component {
             options={{
               responsive: true,
               legend: {
+                display: false,
                 padding: 0,
                 boxWidth: 10,
                 position: 'bottom',
@@ -92,8 +93,8 @@ export default class Stats extends Component {
               },
               tooltips: {
                 titleFontColor: '#f7f0f5',
-                titleFontSize: 15,
-                bodyFontSize: 15,
+                titleFontSize: 12,
+                bodyFontSize: 12,
               },
               title: {
                 display: true,
@@ -117,6 +118,7 @@ export default class Stats extends Component {
             }}
             options={{
               legend: {
+                display: false,
                 position: 'bottom',
                 padding: 0,
                 labels: {
@@ -128,8 +130,8 @@ export default class Stats extends Component {
               },
               tooltips: {
                 titleFontColor: 'black',
-                titleFontSize: 15,
-                bodyFontSize: 15,
+                titleFontSize: 12,
+                bodyFontSize: 12,
               },
               title: {
                 display: true,

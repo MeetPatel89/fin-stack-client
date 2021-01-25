@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header/Header';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
+import Landing from './Landing/Landing';
 import './App.css';
 
 export default class App extends Component {
@@ -49,6 +50,7 @@ export default class App extends Component {
                   LogIn
                 </button>
               </div>
+              <Landing />
             </main>
             <footer>
               <p>&#169;Meet 2021</p>
