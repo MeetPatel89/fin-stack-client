@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import config from '../config';
 import Stats from '../Stats/Stats';
 import './Spending.css';
 
@@ -22,10 +23,10 @@ export default class Spending extends Component {
 
   componentDidMount() {
     const transactions = fetch(
-      `http://localhost:8000/api/transactions/${this.props.userId}`
+      `${config.API_BASE_URL}/transactions/${this.props.userId}`
     ).then((res) => res.json());
     const categories = fetch(
-      `http://localhost:8000/api/categories/${this.props.userId}`
+      `${config.API_BASE_URL}/categories/${this.props.userId}`
     ).then((res) => res.json());
 
     Promise.all([transactions, categories]).then((response) => {

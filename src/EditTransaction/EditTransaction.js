@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../config';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import './EditTransaction.css';
@@ -112,7 +113,7 @@ export default class EditTransaction extends Component {
             type: this.state.type.value,
           };
           postCategory = fetch(
-            `http://localhost:8000/api/categories/${this.props.userId}`,
+            `${config.API_BASE_URL}/categories/${this.props.userId}`,
             {
               method: 'POST',
               headers: {
@@ -132,7 +133,7 @@ export default class EditTransaction extends Component {
             accounts: this.state.account.value,
           };
           postAccount = fetch(
-            `http://localhost:8000/api/accounts/${this.props.userId}`,
+            `${config.API_BASE_URL}/accounts/${this.props.userId}`,
             {
               method: 'POST',
               headers: {
@@ -161,7 +162,7 @@ export default class EditTransaction extends Component {
       }
       console.log(updatedTransaction);
       const postTransaction = fetch(
-        `http://localhost:8000/api/transactions/${this.props.id}`,
+        `${config.API_BASE_URL}/transactions/${this.props.id}`,
         {
           method: 'PATCH',
           headers: {

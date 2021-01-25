@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../config';
 import DisplayAccounts from '../DisplayAccounts/DisplayAccounts';
 import './Accounts.css';
 
@@ -31,7 +32,7 @@ export default class Accounts extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.value) {
-      fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
+      fetch(`${config.API_BASE_URL}/accounts/${this.props.userId}`)
         .then((res) => res.json())
         .then((accounts) => {
           const duplicateAccount = accounts.filter(
@@ -45,7 +46,7 @@ export default class Accounts extends Component {
             const newAccount = {
               accounts: this.state.value,
             };
-            fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
+            fetch(`${config.API_BASE_URL}/accounts/${this.props.userId}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ export default class Accounts extends Component {
   };
 
   componentDidMount() {
-    fetch(`http://localhost:8000/api/accounts/${this.props.userId}`)
+    fetch(`${config.API_BASE_URL}/accounts/${this.props.userId}`)
       .then((res) => res.json())
       .then((accountObj) => {
         const accounts = accountObj.map((account) => account.accounts);

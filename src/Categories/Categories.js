@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../config';
 import DisplayCategories from '../DisplayCategories/DisplayCategories';
 import './Categories.css';
 
@@ -75,7 +76,7 @@ export default class Categories extends Component {
           category: this.state.value,
           type: 'expense',
         };
-        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+        fetch(`${config.API_BASE_URL}/categories/${this.props.userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ export default class Categories extends Component {
           category: this.state.value,
           type: 'balance',
         };
-        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+        fetch(`${config.API_BASE_URL}/categories/${this.props.userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -124,7 +125,7 @@ export default class Categories extends Component {
   };
 
   componentDidMount() {
-    fetch(`http://localhost:8000/api/categories/${this.props.userId}`)
+    fetch(`${config.API_BASE_URL}/categories/${this.props.userId}`)
       .then((res) => res.json())
       .then((categories) => {
         console.log(categories);

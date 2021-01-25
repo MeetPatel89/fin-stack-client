@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import config from '../config';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CreatableSelect from 'react-select/creatable';
@@ -48,7 +49,7 @@ export default class Transactions extends Component {
     const transaction = e.target;
     const deleteId = transaction.id;
     console.log(deleteId);
-    fetch(`http://localhost:8000/api/transactions/${deleteId}`, {
+    fetch(`${config.API_BASE_URL}/transactions/${deleteId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -200,7 +201,7 @@ export default class Transactions extends Component {
           category: this.state.category.value,
           type: this.state.type,
         };
-        fetch(`http://localhost:8000/api/categories/${this.props.userId}`, {
+        fetch(`${config.API_BASE_URL}/categories/${this.props.userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -218,7 +219,7 @@ export default class Transactions extends Component {
         const newAccount = {
           accounts: this.state.account.value,
         };
-        fetch(`http://localhost:8000/api/accounts/${this.props.userId}`, {
+        fetch(`${config.API_BASE_URL}/accounts/${this.props.userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -259,7 +260,7 @@ export default class Transactions extends Component {
           type,
           date_time: datetime,
         };
-        fetch(`http://localhost:8000/api/transactions/${this.props.userId}`, {
+        fetch(`${config.API_BASE_URL}/transactions/${this.props.userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -279,14 +280,14 @@ export default class Transactions extends Component {
 
   componentDidMount() {
     const transactions = fetch(
-      `http://localhost:8000/api/transactions/${this.props.userId}`
+      `${config.API_BASE_URL}/transactions/${this.props.userId}`
     ).then((res) => res.json());
     const categories = fetch(
-      `http://localhost:8000/api/categories/${this.props.userId}`
+      `${config.API_BASE_URL}/categories/${this.props.userId}`
     ).then((res) => res.json());
 
     const accounts = fetch(
-      `http://localhost:8000/api/accounts/${this.props.userId}`
+      `${config.API_BASE_URL}/accounts/${this.props.userId}`
     ).then((res) => res.json());
     Promise.all([transactions, categories, accounts]).then((response) => {
       this.setState({
