@@ -30,7 +30,7 @@ export default class Transactions extends Component {
   }
 
   handleTransactionClick = (e) => {
-    const transaction = e.target.closest('.individual-trx')
+    const transaction = e.target.closest('.individual-trx');
     const buttons = transaction.nextSibling.nextSibling;
 
     transaction.classList.remove('border-bottom');
@@ -277,28 +277,6 @@ export default class Transactions extends Component {
     }
   };
 
-  /*
-  componentWillUnmount = () => {
-    const transactions = fetch(
-      `http://localhost:8000/api/transactions/${this.props.userId}`
-    ).then((res) => res.json());
-    const categories = fetch(
-      `http://localhost:8000/api/categories/${this.props.userId}`
-    ).then((res) => res.json());
-
-    const accounts = fetch(
-      `http://localhost:8000/api/accounts/${this.props.userId}`
-    ).then((res) => res.json());
-    Promise.all([transactions, categories, accounts]).then((response) => {
-      this.setState({
-        transactions: response[0],
-        categories: response[1],
-        accounts: response[2],
-      });
-    });
-  };
-  */
-
   componentDidMount() {
     const transactions = fetch(
       `http://localhost:8000/api/transactions/${this.props.userId}`
@@ -482,6 +460,8 @@ export default class Transactions extends Component {
                   type='text'
                   name='amount'
                   id='amount'
+                  aria-label='transaction amount'
+                  aria-describedby='error'
                   value={this.state.amount}
                   onChange={this.handleChange}
                 />
@@ -492,6 +472,8 @@ export default class Transactions extends Component {
                   type='date'
                   name='date'
                   id='date'
+                  aria-label='transaction date'
+                  aria-describedby='error'
                   value={this.state.date}
                   onChange={this.handleChange}
                 />
@@ -502,6 +484,8 @@ export default class Transactions extends Component {
                   type='time'
                   name='time'
                   id='time'
+                  aria-label='transaction time'
+                  aria-describedby='error'
                   value={this.state.time}
                   onChange={this.handleChange}
                 />
@@ -511,7 +495,9 @@ export default class Transactions extends Component {
               <button type='button' onClick={this.handleClick}>
                 Cancel
               </button>
-              <div className='err'>{this.state.error}</div>
+              <div id='error' className='err'>
+                {this.state.error}
+              </div>
             </form>
           </section>
         ) : (

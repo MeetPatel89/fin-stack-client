@@ -52,4 +52,7 @@
   letter-spacing: 1px;
 }
 
-
+.balance,
+.expense {
+  text-decoration: underline;
+}

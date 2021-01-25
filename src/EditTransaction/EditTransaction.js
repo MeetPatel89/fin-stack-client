@@ -13,7 +13,7 @@ export default class EditTransaction extends Component {
       amount: this.props.amount,
       date: this.props.date,
       time: this.props.time,
-      error: ''
+      error: '',
     };
   }
 
@@ -94,7 +94,14 @@ export default class EditTransaction extends Component {
     e.preventDefault();
     let updatedTransaction = {};
     let postCategory, postAccount;
-    if (this.props.account.value !== this.state.account.value || this.props.amount !== this.state.amount || this.props.category.value !== this.state.category.value || this.props.date !== this.state.date || this.props.time !== this.state.time || this.props.type.value !== this.state.type.value) {
+    if (
+      this.props.account.value !== this.state.account.value ||
+      this.props.amount !== this.state.amount ||
+      this.props.category.value !== this.state.category.value ||
+      this.props.date !== this.state.date ||
+      this.props.time !== this.state.time ||
+      this.props.type.value !== this.state.type.value
+    ) {
       if (this.state.category.value !== this.props.category.value) {
         Object.assign(updatedTransaction, {
           category: this.state.category.value,
@@ -168,10 +175,9 @@ export default class EditTransaction extends Component {
       });
     } else {
       this.setState({
-        error: 'Edit at least one field to submit'
-      })
+        error: 'Edit at least one field to submit',
+      });
     }
-    
   };
 
   render() {
@@ -216,6 +222,8 @@ export default class EditTransaction extends Component {
           <input
             type='text'
             name='amount'
+            aria-label='transaction amount'
+            aria-describedby='error'
             id={`amount-${this.props.identifier}`}
             value={this.state.amount}
             onChange={this.handleChange}
@@ -226,6 +234,8 @@ export default class EditTransaction extends Component {
           <input
             type='date'
             name='date'
+            aria-label='transaction date'
+            aria-describedby='error'
             id={`date-${this.props.identifier}`}
             value={this.state.date}
             onChange={this.handleChange}
@@ -236,6 +246,8 @@ export default class EditTransaction extends Component {
           <input
             type='time'
             name='time'
+            aria-label='transaction time'
+            aria-describedby='error'
             id={`time-${this.props.identifier}`}
             value={this.state.time}
             onChange={this.handleChange}
@@ -247,7 +259,9 @@ export default class EditTransaction extends Component {
             Cancel
           </button>
         </div>
-        <div className='err'>{this.state.error}</div>
+        <div id='error' className='err'>
+          {this.state.error}
+        </div>
       </form>
     );
   }

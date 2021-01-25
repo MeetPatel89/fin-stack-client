@@ -35,7 +35,7 @@ export default class Stats extends Component {
       this.state.canvas[0].style.minHeight = '300px';
       this.state.canvas[0].style.minWidth = '480px';
       this.state.canvas[0].style.maxHeight = '600px';
-      this.state.canvas[0].style.maxWidth = '1000px'
+      this.state.canvas[0].style.maxWidth = '1000px';
       this.state.canvas[0].style.display = 'flex';
       this.state.canvas[0].style.flexDirection = 'column';
       this.state.canvas[0].style.alignItems = 'center';

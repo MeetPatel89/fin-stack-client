@@ -18,9 +18,15 @@ export default class Nav extends Component {
           <li>
             <Link to='/transactions'>Transactions</Link>
           </li>
-          <li><Link to='/categories'>Categories</Link></li>
-          <li><Link to='/accounts'>Accounts</Link></li>
-          <li id="log-out" onClick={this.props.handleClick}>LogOut</li>
+          <li>
+            <Link to='/categories'>Categories</Link>
+          </li>
+          <li>
+            <Link to='/accounts'>Accounts</Link>
+          </li>
+          <li id='log-out' onClick={this.props.handleClick}>
+            LogOut
+          </li>
         </ul>
       </nav>
     );

@@ -45,7 +45,7 @@ export default class App extends Component {
                 <button className='btn' onClick={this.handleClick}>
                   SignUp
                 </button>
-                
+
                 <button className='btn' onClick={this.handleClick}>
                   LogIn
                 </button>

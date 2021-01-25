@@ -189,6 +189,9 @@ export default class Categories extends Component {
                   placeholder='e.g. Food'
                   type='text'
                   id='category'
+                  aria-label='transaction category'
+                  aria-required='true'
+                  aria-describedby='error'
                   value={this.state.value}
                   onChange={this.handleChange}
                   required
@@ -202,7 +205,9 @@ export default class Categories extends Component {
                   Cancel
                 </button>
               </div>
-              <div className='err'>{this.state.error}</div>
+              <div id='error' className='err'>
+                {this.state.error}
+              </div>
             </form>
           </>
         )}

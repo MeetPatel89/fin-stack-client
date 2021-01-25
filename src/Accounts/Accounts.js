@@ -59,7 +59,7 @@ export default class Accounts extends Component {
                   return {
                     newAccount: account[0].accounts,
                     addAccount: false,
-                    value: ''
+                    value: '',
                   };
                 });
               });
@@ -92,13 +92,16 @@ export default class Accounts extends Component {
         </button>
 
         {this.state.addAccount && (
-          <form className="add-account" onSubmit={this.handleSubmit}>
+          <form className='add-account' onSubmit={this.handleSubmit}>
             <div className='label-ctl'>
               <label htmlFor='account'>Name:</label>
               <input
                 placeholder='discover bank'
                 type='text'
                 id='account'
+                aria-label='account name'
+                aria-required='true'
+                aria-describedby='error'
                 value={this.state.value}
                 onChange={this.handleChange}
                 required
@@ -111,7 +114,9 @@ export default class Accounts extends Component {
             <button className='cancel' onClick={this.handleClick}>
               Cancel
             </button>
-            {this.state.error}
+            <div id='error' className='err'>
+              {this.state.error}
+            </div>
           </form>
         )}
       </div>
