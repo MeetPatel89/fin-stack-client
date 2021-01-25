@@ -30,8 +30,8 @@ export default class Transactions extends Component {
   }
 
   handleTransactionClick = (e) => {
-    const transaction = e.target;
-    const buttons = e.target.nextSibling.nextSibling;
+    const transaction = e.target.closest('.individual-trx')
+    const buttons = transaction.nextSibling.nextSibling;
 
     transaction.classList.remove('border-bottom');
     buttons.classList.add('flex-row');
