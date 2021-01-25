@@ -138,7 +138,11 @@ main {
   }
 
   .stats-btns > button {
-    width: 60px;
+    font-size: 10px;
+  }
+
+  .stats-btns > button:hover {
+    letter-spacing: 0;
   }
 
   .no-trx {

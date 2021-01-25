@@ -7,7 +7,6 @@ export default class Stats extends Component {
     super(props);
     this.state = {
       showExpense: true,
-      canvas: '',
     };
   }
 
@@ -23,24 +22,7 @@ export default class Stats extends Component {
     }
   };
 
-  componentDidMount() {
-    const canvas = document.getElementsByTagName('canvas');
-    this.setState({
-      canvas,
-    });
-  }
-
   render() {
-    if (this.state.canvas) {
-      this.state.canvas[0].style.minHeight = '300px';
-      this.state.canvas[0].style.minWidth = '480px';
-      this.state.canvas[0].style.maxHeight = '600px';
-      this.state.canvas[0].style.maxWidth = '1000px';
-      this.state.canvas[0].style.display = 'flex';
-      this.state.canvas[0].style.flexDirection = 'column';
-      this.state.canvas[0].style.alignItems = 'center';
-    }
-    console.log(this.state.canvas[0]);
     const balanceLabels = this.props.balance.map((balance) => balance.category);
     const balanceData = this.props.balance.map((balance) => balance.amount);
     const expenseLabels = this.props.expense.map((expense) => expense.category);
@@ -93,11 +75,11 @@ export default class Stats extends Component {
               },
               tooltips: {
                 titleFontColor: '#f7f0f5',
-                titleFontSize: 12,
-                bodyFontSize: 12,
+                titleFontSize: 13,
+                bodyFontSize: 13,
               },
               title: {
-                display: true,
+                display: false,
                 text: 'Expense in US Dollars',
                 fontColor: '#f7f0f5',
                 fontSize: 15,
@@ -130,11 +112,11 @@ export default class Stats extends Component {
               },
               tooltips: {
                 titleFontColor: 'black',
-                titleFontSize: 12,
-                bodyFontSize: 12,
+                titleFontSize: 13,
+                bodyFontSize: 13,
               },
               title: {
-                display: true,
+                display: false,
                 text: 'Balance in US Dollars',
                 fontColor: '#f7f0f5',
                 fontSize: 15,
