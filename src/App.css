@@ -122,6 +122,23 @@ footer {
   .stats-btns > button {
     width: 60px;
   }
+
+  .no-trx {
+    font-size: 15px;
+  }
+
+  .category,
+  .amount {
+    font-size: 15px;
+  }
+
+  span.date {
+    font-size: 10px;
+  }
+
+  .display-transaction {
+    width: 80%;
+  }
 }
 
 @media all and (max-width: 450px) {
@@ -140,5 +157,9 @@ footer {
 
   .spending {
     font-size: 15px;
+  }
+
+  .display-transaction {
+    width: 95%;
   }
 }

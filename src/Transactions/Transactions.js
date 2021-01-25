@@ -40,9 +40,6 @@ export default class Transactions extends Component {
   handleCancelClick = (e) => {
     const transaction = e.target.parentElement.previousSibling.previousSibling;
     const buttons = e.target.parentElement;
-    /*
-    buttons.classList.add('hidden');
-    */
     buttons.classList.remove('flex-row');
     transaction.classList.add('border-bottom');
   };
