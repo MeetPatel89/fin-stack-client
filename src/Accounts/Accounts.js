@@ -82,7 +82,8 @@ export default class Accounts extends Component {
 
   render() {
     return (
-      <div className='dis-accounts'>
+      <section className='dis-accounts'>
+        <h2 className='dist'>Accounts</h2>
         <DisplayAccounts
           userId={this.props.userId}
           newAccount={this.state.newAccount}
@@ -120,7 +121,7 @@ export default class Accounts extends Component {
             </div>
           </form>
         )}
-      </div>
+      </section>
     );
   }
 }

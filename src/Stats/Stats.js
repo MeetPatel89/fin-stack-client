@@ -88,7 +88,7 @@ export default class Stats extends Component {
 
         {this.state.showExpense ? (
           <>
-            <h2>Expense Distribution</h2>
+            <h2 className='dist'>Expense Distribution</h2>
 
             <div className='labels'>
               <p className='no-stats'>{noExpenseStats}</p>
@@ -134,7 +134,7 @@ export default class Stats extends Component {
           </>
         ) : (
           <>
-            <h2>Balance Distribution</h2>
+            <h2 className='dist'>Balance Distribution</h2>
 
             <div className='labels'>
               <p className='no-stats'>{noBalanceStats}</p>
