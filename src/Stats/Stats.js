@@ -62,7 +62,7 @@ export default class Stats extends Component {
                 backgroundColor: `${expenseColors[i]}`,
               }}
             ></div>
-            <span >{category}</span>
+            <span>{category}</span>
           </div>
         </Fragment>
       );

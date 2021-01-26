@@ -38,12 +38,12 @@ DisplayCategories.propTypes = {
   categories: PropTypes.array,
   type: PropTypes.string,
   newExpenseCat: PropTypes.string,
-  newBalanceCat: PropTypes.string
-}
+  newBalanceCat: PropTypes.string,
+};
 
 DisplayCategories.defaultProps = {
   categories: [],
   type: '',
   newExpenseCat: '',
-  newBalanceCat: ''
-}
+  newBalanceCat: '',
+};
