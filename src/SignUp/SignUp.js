@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import Header from '../Header/Header';
 
@@ -247,3 +248,13 @@ export default class SignUp extends Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  handleClick: PropTypes.func,
+};
+
+SignUp.defaultProps = {
+  handleClick: function () {
+    return 'Handle Click';
+  },
+};

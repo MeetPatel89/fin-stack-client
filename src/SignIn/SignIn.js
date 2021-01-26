@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import HomePage from '../HomePage/HomePage';
 import Header from '../Header/Header';
@@ -36,7 +37,6 @@ export default class SignIn extends Component {
     const password = this.state.password;
     fetch(`${config.API_BASE_URL}/users/${username}`)
       .then((response) => {
-        console.log(response.ok);
         if (!response.ok) {
           this.setState({
             usernameError: 'Please enter the correct username',
@@ -160,3 +160,13 @@ export default class SignIn extends Component {
     );
   }
 }
+
+SignIn.propTypes = {
+  handleClick: PropTypes.func,
+};
+
+SignIn.defaultProps = {
+  handleClick: function () {
+    return 'Handle Click';
+  },
+};

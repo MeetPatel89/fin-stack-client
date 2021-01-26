@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import Stats from '../Stats/Stats';
 import './Spending.css';
@@ -32,8 +33,6 @@ export default class Spending extends Component {
     Promise.all([transactions, categories]).then((response) => {
       const transactions = response[0];
       const categories = response[1];
-      console.log(transactions);
-      console.log(categories);
       let transactionsDisplay = categories.map((category) => {
         return {
           category: category.category,
@@ -41,7 +40,6 @@ export default class Spending extends Component {
           type: category.type,
         };
       });
-      console.log(transactionsDisplay);
       for (let i = 0; i < transactions.length; i++) {
         for (let j = 0; j < transactionsDisplay.length; j++) {
           if (transactions[i].category === transactionsDisplay[j].category) {
@@ -49,7 +47,6 @@ export default class Spending extends Component {
           }
         }
       }
-      console.log(transactionsDisplay);
       transactionsDisplay = transactionsDisplay.filter(
         (transaction) => transaction.amount !== 0
       );
@@ -59,9 +56,6 @@ export default class Spending extends Component {
       const expense = transactionsDisplay.filter(
         (transaction) => transaction.type === 'expense'
       );
-      console.log(transactionsDisplay);
-      console.log(balance);
-      console.log(expense);
       let totalBalance = 0,
         totalExpense = 0;
       for (let i = 0; i < balance.length; i++) {
@@ -142,3 +136,11 @@ export default class Spending extends Component {
     );
   }
 }
+
+Spending.propTypes = {
+  userId: PropTypes.number,
+};
+
+Spending.defaultProps = {
+  userId: 1,
+};

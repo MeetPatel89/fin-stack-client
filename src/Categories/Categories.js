@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import DisplayCategories from '../DisplayCategories/DisplayCategories';
 import './Categories.css';
@@ -29,14 +30,12 @@ export default class Categories extends Component {
     const textContent = e.target.textContent;
     if (textContent === 'Add') {
       if (this.state.displayExpense) {
-        console.log('Add expense');
         this.setState({
           addCategory: true,
           newBalanceCat: '',
           newExpenseCat: '',
         });
       } else {
-        console.log('Add balance');
         this.setState({
           addCategory: true,
           newBalanceCat: '',
@@ -128,7 +127,6 @@ export default class Categories extends Component {
     fetch(`${config.API_BASE_URL}/categories/${this.props.userId}`)
       .then((res) => res.json())
       .then((categories) => {
-        console.log(categories);
         let expenseCat = [],
           balanceCat = [];
         for (let i = 0; i < categories.length; i++) {
@@ -216,3 +214,11 @@ export default class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  userId: PropTypes.number,
+};
+
+Categories.defaultProps = {
+  userId: 1,
+};

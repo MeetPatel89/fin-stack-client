@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import DisplayAccounts from '../DisplayAccounts/DisplayAccounts';
 import './Accounts.css';
@@ -55,7 +56,6 @@ export default class Accounts extends Component {
             })
               .then((res) => res.json())
               .then((account) => {
-                console.log(account[0].accounts);
                 this.setState((prevState) => {
                   return {
                     newAccount: account[0].accounts,
@@ -124,3 +124,11 @@ export default class Accounts extends Component {
     );
   }
 }
+
+Accounts.propTypes = {
+  userId: PropTypes.number,
+};
+
+Accounts.defaultProps = {
+  userId: 1,
+};

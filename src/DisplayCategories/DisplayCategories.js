@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class DisplayCategories extends Component {
   constructor(props) {
@@ -31,4 +32,18 @@ export default class DisplayCategories extends Component {
       </>
     );
   }
+}
+
+DisplayCategories.propTypes = {
+  categories: PropTypes.array,
+  type: PropTypes.string,
+  newExpenseCat: PropTypes.string,
+  newBalanceCat: PropTypes.string
+}
+
+DisplayCategories.defaultProps = {
+  categories: [],
+  type: '',
+  newExpenseCat: '',
+  newBalanceCat: ''
 }

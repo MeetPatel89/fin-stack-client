@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top : 10px;
+  margin-top: 10px;
 }
 
 .stats > button,
@@ -14,6 +14,27 @@
   height: 50px;
 }
 
+.labels {
+  margin: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.balance-divs > div,
+.expense-divs > div {
+  height: 15px;
+  width: 30px;
+  display: inline-block;
+  border: 1px solid #f7f0f5;
+}
+
+.balance-divs > span,
+.expense-divs > span {
+  color: #f7f0f5;
+  margin: 3px;
+}
+
 .stats > button:hover,
 .stats-btns > button:hover {
   background-color: #50a2a7;
@@ -22,6 +43,15 @@
   letter-spacing: 1px;
 }
 
-@media all and (max-width: 650px) {
- 
+@media all and (max-width: 450px) {
+  .balance-divs > div,
+  .expense-divs > div {
+    height: 10px;
+    width: 20px;
+  }
+
+  .balance-divs  span,
+  .expense-divs  span {
+    font-size: 10px;
+  }
 }

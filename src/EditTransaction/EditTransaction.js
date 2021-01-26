@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
@@ -19,7 +20,6 @@ export default class EditTransaction extends Component {
   }
 
   handleCategoryChange = (e) => {
-    console.log(e);
     if (e) {
       if (e['__isNew__']) {
         this.setState({
@@ -46,7 +46,6 @@ export default class EditTransaction extends Component {
   };
 
   handleAccountChange = (e) => {
-    console.log(e);
     if (e) {
       if (e['__isNew__']) {
         this.setState({
@@ -73,7 +72,6 @@ export default class EditTransaction extends Component {
   };
 
   handleTypeChange = (e) => {
-    console.log(e);
     this.setState({
       type: {
         value: e.value,
@@ -83,7 +81,6 @@ export default class EditTransaction extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.value);
     const name = e.target.name;
     const value = e.target.value;
     this.setState({
@@ -160,7 +157,6 @@ export default class EditTransaction extends Component {
           ).toISOString(),
         });
       }
-      console.log(updatedTransaction);
       const postTransaction = fetch(
         `${config.API_BASE_URL}/transactions/${this.props.id}`,
         {
@@ -267,3 +263,39 @@ export default class EditTransaction extends Component {
     );
   }
 }
+
+EditTransaction.propTypes = {
+  account: PropTypes.object,
+  accounts: PropTypes.array,
+  amount: PropTypes.string,
+  categories: PropTypes.array,
+  category: PropTypes.object,
+  date: PropTypes.string,
+  display: PropTypes.string,
+  handleCancelEditClick: PropTypes.func,
+  handleChangeKey: PropTypes.func,
+  id: PropTypes.number,
+  identifier: PropTypes.number,
+  time: PropTypes.string,
+  type: PropTypes.object,
+  types: PropTypes.array,
+  userId: PropTypes.number,
+};
+
+EditTransaction.defaultProps = {
+  account: {},
+  accounts: [],
+  amount: '',
+  categories: [],
+  category: {},
+  date: '',
+  display: '',
+  handleCancelEditClick: function () {},
+  handleChangeKey: function () {},
+  id: 1,
+  identifier: 1,
+  time: '',
+  type: {},
+  types: [],
+  userId: 1,
+};

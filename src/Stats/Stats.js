@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Pie } from 'react-chartjs-2';
 import './Stats.css';
 
@@ -36,7 +37,36 @@ export default class Stats extends Component {
       return color;
     }
     const balanceColors = this.props.balance.map((balance) => getRandomColor());
+    const balanceLabelDivs = balanceLabels.map((category, i) => {
+      return (
+        <Fragment key={i}>
+          <div className='balance-divs'>
+            <div
+              style={{
+                backgroundColor: `${balanceColors[i]}`,
+              }}
+            ></div>
+            <span>{category}</span>
+          </div>
+        </Fragment>
+      );
+    });
+
     const expenseColors = this.props.expense.map((expense) => getRandomColor());
+    const expenseLabelDivs = expenseLabels.map((category, i) => {
+      return (
+        <Fragment key={i}>
+          <div className='expense-divs'>
+            <div
+              style={{
+                backgroundColor: `${expenseColors[i]}`,
+              }}
+            ></div>
+            <span >{category}</span>
+          </div>
+        </Fragment>
+      );
+    });
     return (
       <div className='stats'>
         <div className='stats-btns'>
@@ -49,80 +79,88 @@ export default class Stats extends Component {
         </div>
 
         {this.state.showExpense ? (
-          <Pie
-            data={{
-              labels: expenseLabels,
-              datasets: [
-                {
-                  label: 'Expense(Dollars)',
-                  backgroundColor: expenseColors,
-                  data: expenseData,
+          <>
+            <h2>Expense Distribution</h2>
+            <div className='labels'>{expenseLabelDivs}</div>
+            <Pie
+              data={{
+                labels: expenseLabels,
+                datasets: [
+                  {
+                    label: 'Expense(Dollars)',
+                    backgroundColor: expenseColors,
+                    data: expenseData,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                legend: {
+                  display: false,
+                  padding: 0,
+                  boxWidth: 10,
+                  position: 'bottom',
+                  labels: {
+                    fontColor: '#f7f0f5',
+                    fontSize: 13,
+                    usePointStyle: true,
+                  },
                 },
-              ],
-            }}
-            options={{
-              responsive: true,
-              legend: {
-                display: false,
-                padding: 0,
-                boxWidth: 10,
-                position: 'bottom',
-                labels: {
+                tooltips: {
+                  titleFontColor: '#f7f0f5',
+                  titleFontSize: 13,
+                  bodyFontSize: 13,
+                },
+                title: {
+                  display: false,
+                  text: 'Expense in US Dollars',
                   fontColor: '#f7f0f5',
-                  fontSize: 13,
-                  usePointStyle: true,
+                  fontSize: 15,
                 },
-              },
-              tooltips: {
-                titleFontColor: '#f7f0f5',
-                titleFontSize: 13,
-                bodyFontSize: 13,
-              },
-              title: {
-                display: false,
-                text: 'Expense in US Dollars',
-                fontColor: '#f7f0f5',
-                fontSize: 15,
-              },
-            }}
-          />
+              }}
+            />
+          </>
         ) : (
-          <Pie
-            data={{
-              labels: balanceLabels,
-              datasets: [
-                {
-                  label: 'Balance(Dollars)',
-                  backgroundColor: balanceColors,
-                  data: balanceData,
+          <>
+            <h2>Balance Distribution</h2>
+            <div className='labels'>{balanceLabelDivs}</div>
+            <Pie
+              data={{
+                labels: balanceLabels,
+                datasets: [
+                  {
+                    label: 'Balance(Dollars)',
+                    backgroundColor: balanceColors,
+                    data: balanceData,
+                  },
+                ],
+              }}
+              options={{
+                legend: {
+                  display: false,
+                  position: 'bottom',
+                  padding: 0,
+                  labels: {
+                    fontColor: '#f7f0f5',
+                    fontSize: 13,
+                    usePointStyle: true,
+                    fullWidth: true,
+                  },
                 },
-              ],
-            }}
-            options={{
-              legend: {
-                display: false,
-                position: 'bottom',
-                padding: 0,
-                labels: {
+                tooltips: {
+                  titleFontColor: 'black',
+                  titleFontSize: 13,
+                  bodyFontSize: 13,
+                },
+                title: {
+                  display: false,
+                  text: 'Balance in US Dollars',
                   fontColor: '#f7f0f5',
-                  fontSize: 13,
-                  usePointStyle: true,
-                  fullWidth: true,
+                  fontSize: 15,
                 },
-              },
-              tooltips: {
-                titleFontColor: 'black',
-                titleFontSize: 13,
-                bodyFontSize: 13,
-              },
-              title: {
-                display: false,
-                text: 'Balance in US Dollars',
-                fontColor: '#f7f0f5',
-                fontSize: 15,
-              },
-            }}
-          />
+              }}
+            />
+          </>
         )}
         <button type='button' onClick={this.props.handleClick}>
           Back
@@ -131,3 +169,17 @@ export default class Stats extends Component {
     );
   }
 }
+
+Stats.propTypes = {
+  balance: PropTypes.array,
+  expense: PropTypes.array,
+  handleClick: PropTypes.func,
+};
+
+Stats.defaultProps = {
+  balance: [],
+  expense: [],
+  handleClick: function () {
+    return 'Handle Click';
+  },
+};

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import config from '../config';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -48,7 +49,6 @@ export default class Transactions extends Component {
   handleDeleteClick = (e) => {
     const transaction = e.target;
     const deleteId = transaction.id;
-    console.log(deleteId);
     fetch(`${config.API_BASE_URL}/transactions/${deleteId}`, {
       method: 'DELETE',
       headers: {
@@ -67,7 +67,6 @@ export default class Transactions extends Component {
   };
 
   handleEditClick = (e) => {
-    console.log('Edit clicked');
     const buttons = e.target.parentElement;
     const formElement = buttons.previousSibling;
     buttons.classList.remove('flex-row');
@@ -75,7 +74,6 @@ export default class Transactions extends Component {
   };
 
   handleCancelEditClick = (e) => {
-    console.log(e.target);
     const formElement = e.target.parentElement.parentElement;
     const transaction = formElement.previousSibling;
     formElement.classList.remove('flex-col');
@@ -92,8 +90,6 @@ export default class Transactions extends Component {
   };
 
   handleCategoryChange = (e) => {
-    console.log('Event activated');
-    console.log(e);
     if (e) {
       if (e['__isNew__']) {
         this.setState({
@@ -524,3 +520,13 @@ export default class Transactions extends Component {
     );
   }
 }
+
+Transactions.propTypes = {
+  handleChangeKey: PropTypes.func,
+  userId: PropTypes.number,
+};
+
+Transactions.defaultProps = {
+  handleChangeKey: function () {},
+  userId: 1,
+};

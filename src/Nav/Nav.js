@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './Nav.css';
 
 export default class Nav extends Component {
@@ -32,3 +33,15 @@ export default class Nav extends Component {
     );
   }
 }
+
+Nav.propTypes = {
+  handleClick: PropTypes.func,
+  user: PropTypes.string,
+};
+
+Nav.defaultProps = {
+  handleClick: function () {
+    return 'Handle Click';
+  },
+  user: 'RandomUser89',
+};

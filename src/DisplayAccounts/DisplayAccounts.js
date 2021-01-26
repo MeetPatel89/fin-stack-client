@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class DisplayAccounts extends Component {
   constructor(props) {
@@ -33,3 +34,15 @@ export default class DisplayAccounts extends Component {
     return <div className='display-accounts'>{accountsToDisplay}</div>;
   }
 }
+
+DisplayAccounts.propTypes = {
+  accounts: PropTypes.array,
+  newAccount: PropTypes.string,
+  userId: PropTypes.number,
+};
+
+DisplayAccounts.defaultProps = {
+  accounts: [],
+  newAccount: '',
+  userId: 1,
+};

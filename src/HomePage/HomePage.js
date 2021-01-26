@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Accounts from '../Accounts/Accounts';
 import Categories from '../Categories/Categories';
 import Transactions from '../Transactions/Transactions';
@@ -60,3 +61,17 @@ export default class HomePage extends Component {
     );
   }
 }
+
+HomePage.propTypes = {
+  handleClick: PropTypes.func,
+  user: PropTypes.string,
+  userId: PropTypes.number,
+};
+
+HomePage.defaultProps = {
+  handleClick: function () {
+    return 'Handle Click';
+  },
+  user: 'RandomUser89',
+  userId: 1,
+};

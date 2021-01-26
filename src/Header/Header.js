@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './Header.css';
 
 export default function Header(props) {
@@ -14,3 +15,11 @@ export default function Header(props) {
     </>
   );
 }
+
+Header.propTypes = {
+  user: PropTypes.string,
+};
+
+Header.defaultProps = {
+  user: 'RandomUser89',
+};
