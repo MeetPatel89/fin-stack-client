@@ -24,6 +24,14 @@ export default class Stats extends Component {
   };
 
   render() {
+    let noBalanceStats;
+    let noExpenseStats;
+    if (!this.props.balance.length) {
+      noBalanceStats = `There are no balance stats to visualize`;
+    }
+    if (!this.props.expense.length) {
+      noExpenseStats = `There are no expense stats to visualize`;
+    }
     const balanceLabels = this.props.balance.map((balance) => balance.category);
     const balanceData = this.props.balance.map((balance) => balance.amount);
     const expenseLabels = this.props.expense.map((expense) => expense.category);
@@ -81,7 +89,11 @@ export default class Stats extends Component {
         {this.state.showExpense ? (
           <>
             <h2>Expense Distribution</h2>
-            <div className='labels'>{expenseLabelDivs}</div>
+
+            <div className='labels'>
+              <p className='no-stats'>{noExpenseStats}</p>
+              {expenseLabelDivs}
+            </div>
             <Pie
               data={{
                 labels: expenseLabels,
@@ -123,7 +135,11 @@ export default class Stats extends Component {
         ) : (
           <>
             <h2>Balance Distribution</h2>
-            <div className='labels'>{balanceLabelDivs}</div>
+
+            <div className='labels'>
+              <p className='no-stats'>{noBalanceStats}</p>
+              {balanceLabelDivs}
+            </div>
             <Pie
               data={{
                 labels: balanceLabels,

@@ -12,6 +12,7 @@ export default class SignIn extends Component {
       isLogged: false,
       username: '',
       password: '',
+      error: ''
     };
   }
 
@@ -39,8 +40,7 @@ export default class SignIn extends Component {
       .then((response) => {
         if (!response.ok) {
           this.setState({
-            usernameError: 'Please enter the correct username',
-            passwordError: '',
+            error: 'Please enter the correct username',
           });
           return;
         }
@@ -49,26 +49,22 @@ export default class SignIn extends Component {
       .then((user) => {
         if (!user.length) {
           this.setState({
-            usernameError: 'Please enter the correct username',
-            passwordError: '',
+            error: 'Please enter the correct username',
           });
         } else if (user[0].password !== password) {
           this.setState({
-            passwordError: 'Please enter the correct password',
-            usernameError: '',
+            error: 'Please enter the correct password',
           });
         } else {
           this.setState({
             isLogged: true,
+            error: '',
             ...user[0],
           });
         }
       })
       .catch((err) => {
-        this.setState({
-          usernameError: 'Please enter the correct username',
-          passwordError: '',
-        });
+        return err;
       });
   };
 
@@ -110,7 +106,6 @@ export default class SignIn extends Component {
                       <span className='content'>Username</span>
                     </label>
                     <div className='errorMessage' id='usernameError'>
-                      {this.state.usernameError}
                     </div>
                   </div>
 
@@ -132,13 +127,13 @@ export default class SignIn extends Component {
                       <span className='content'>Password</span>{' '}
                     </label>
                     <div className='errorMessage' id='passwordError'>
-                      {this.state.passwordError}
                     </div>
                   </div>
                   <div id='btns' className='buttons'>
                     <button className='btn log-in-button' type='submit'>
                       LogIn
                     </button>
+                    {this.state.error}
                     <p className='to-signup'>Don't have an account</p>
                     <button
                       className='btn sign-up-button'

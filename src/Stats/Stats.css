@@ -43,6 +43,12 @@
   letter-spacing: 1px;
 }
 
+.no-stats {
+  color: #f7f0f5;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media all and (max-width: 450px) {
   .balance-divs > div,
   .expense-divs > div {
