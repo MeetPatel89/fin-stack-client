@@ -11,11 +11,7 @@ export default class SignUp extends Component {
       username: '',
       password: '',
       'confirm-password': '',
-      usernameError: '',
-      fullnameError: '',
-      passwordError: '',
-      confirmPasswordError: '',
-      usernameExists: '',
+      error: '',
     };
   }
 
@@ -34,41 +30,25 @@ export default class SignUp extends Component {
     const passwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (this.state.fullname.length > 36) {
       this.setState({
-        fullnameError: 'Full name should be less than 36 characters',
+        error: 'Full name should be less than 36 characters',
         signUp: '',
-        usernameError: '',
-        passwordError: '',
-        confirmPasswordError: '',
-        usernameExists: '',
       });
     } else if (this.state.username.length > 36) {
       this.setState({
-        usernameError: 'Username should be less than 36 characters',
+        error: 'Username should be less than 36 characters',
         signUp: '',
-        fullnameError: '',
-        passwordError: '',
-        confirmPasswordError: '',
-        usernameExists: '',
       });
     } else if (!this.state.password.match(passwd)) {
       this.setState({
-        passwordError:
+        error:
           'Password should contain at least one uppercase letter, one lowercase letter and one numeric digit',
         signUp: '',
-        confirmPasswordError: '',
-        fullnameError: '',
-        usernameError: '',
-        usernameExists: '',
       });
     } else if (this.state.password !== this.state['confirm-password']) {
       this.setState({
-        confirmPasswordError:
+        error:
           '"Password" and "Confirm Password" fields should match each other',
         signUp: '',
-        fullnameError: '',
-        usernameError: '',
-        passwordError: '',
-        usernameExists: '',
       });
     } else {
       const { fullname, username, password } = this.state;
@@ -86,12 +66,8 @@ export default class SignUp extends Component {
           );
           if (username) {
             this.setState({
-              confirmPasswordError: '',
               signUp: '',
-              fullnameError: '',
-              usernameError: '',
-              passwordError: '',
-              usernameExists:
+              error:
                 'This username is already taken. Please enter a different one',
             });
           } else {
@@ -107,15 +83,11 @@ export default class SignUp extends Component {
                 this.setState({
                   signUp:
                     'You can now log in using newly created user credentials',
-                  fullnameError: '',
-                  usernameError: '',
-                  passwordError: '',
-                  confirmPasswordError: '',
+                  error: '',
                   fullname: '',
                   username: '',
                   password: '',
                   'confirm-password': '',
-                  usernameExists: '',
                 });
               })
               .catch((error) => {
