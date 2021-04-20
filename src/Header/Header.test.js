@@ -1,6 +1,7 @@
 // make React available
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 
 // make the ReactDOM available necessary for rendering the component
 import ReactDOM from 'react-dom';
@@ -24,5 +25,27 @@ describe('Header Component', () => {
 
     // clean up code
     ReactDOM.unmountComponentAtNode(div);
+  });
+
+  it('renders the UI as expected', () => {
+    const treeToRender = renderer
+      .create(
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>
+      )
+      .toJSON();
+    expect(treeToRender).toMatchSnapshot();
+  });
+
+  it('renders the UI as expected with user prop', () => {
+    const treeToRender = renderer
+      .create(
+        <BrowserRouter>
+          <Header user='Random User' />
+        </BrowserRouter>
+      )
+      .toJSON();
+    expect(treeToRender).toMatchSnapshot();
   });
 });

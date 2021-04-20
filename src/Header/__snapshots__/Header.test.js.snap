@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component renders the UI as expected 1`] = `
+<header
+  className="logo"
+>
+  <h1
+    className="main-heading"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Fin Stack
+    </a>
+  </h1>
+  <span
+    className="user"
+  >
+    
+  </span>
+</header>
+`;
+
+exports[`Header Component renders the UI as expected with user prop 1`] = `
+<header
+  className="logo"
+>
+  <h1
+    className="main-heading"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Fin Stack
+    </a>
+  </h1>
+  <span
+    className="user"
+  >
+    Welcome Random User!
+  </span>
+</header>
+`;

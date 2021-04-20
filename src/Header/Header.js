@@ -21,5 +21,5 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  user: 'RandomUser89',
+  user: '',
 };
